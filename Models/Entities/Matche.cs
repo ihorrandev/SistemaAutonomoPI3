@@ -24,5 +24,10 @@ namespace AutoSystem_KingMe.Models.Entity
             var response = Jogo.ListarPartidas(status);
             return response.HandleReponse<Matche>();
         }
-    }
+
+		public static string CreateMatch(string nameMatch, string passwordMatch, string nameGroup)
+		{
+			return Jogo.CriarPartida(nameMatch, passwordMatch, nameGroup);
+		}
+	}
 }
