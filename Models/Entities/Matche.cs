@@ -5,6 +5,7 @@ using KingMeServer;
 
 namespace AutoSystem_KingMe.Models.Entity
 {
+    //classe
     public class Matche : EntityBase
     {
         [Position(0)]
