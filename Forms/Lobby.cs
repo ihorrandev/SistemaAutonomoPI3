@@ -47,13 +47,13 @@ namespace AutoSystem_KingMe
 			string nameGroup = txtBox_nomeGrupo.Text;
 
 			globalMatchId = MatchEntity.CreateMatch(name, password, nameGroup);
-			if (!string.IsNullOrEmpty(globalMatchId))
+			if (!globalMatchId.StartsWith("ERRO"))
 			{
 				lblCreationMatchResponse.Text = $"ID da Partida: {globalMatchId}";
 			}
 			else
 			{
-				lblCreationMatchResponse.Text = "Erro ao criar a partida!";
+				lblCreationMatchResponse.Text = $"{globalMatchId}";
 			}
 		}
 

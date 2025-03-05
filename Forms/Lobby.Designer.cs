@@ -172,9 +172,9 @@
 			// lblCreationMatchResponse
 			// 
 			lblCreationMatchResponse.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			lblCreationMatchResponse.Location = new Point(44, 216);
+			lblCreationMatchResponse.Location = new Point(35, 210);
 			lblCreationMatchResponse.Name = "lblCreationMatchResponse";
-			lblCreationMatchResponse.Size = new Size(111, 15);
+			lblCreationMatchResponse.Size = new Size(151, 39);
 			lblCreationMatchResponse.TabIndex = 14;
 			lblCreationMatchResponse.Text = "ID da Partida:";
 			// 
