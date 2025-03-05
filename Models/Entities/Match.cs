@@ -5,7 +5,7 @@ using KingMeServer;
 
 namespace AutoSystem_KingMe.Models.Entity
 {
-    public class Matche : EntityBase
+    public class Match : EntityBase
     {
         [Position(0)]
         public string Id { get; set; }
@@ -19,10 +19,15 @@ namespace AutoSystem_KingMe.Models.Entity
         [Position(3)]
         public string Status { get; set; }
 
-        public static List<Matche> GetMatches(string? status = "T")
+        public static List<Match> GetMatchs(string? status = "T")
         {
             var response = Jogo.ListarPartidas(status);
-            return response.HandleReponse<Matche>();
+            return response.HandleReponse<Match>();
         }
-    }
+
+		public static string CreateMatch(string nameMatch, string passwordMatch, string nameGroup)
+		{
+			return Jogo.CriarPartida(nameMatch, passwordMatch, nameGroup);
+		}
+	}
 }

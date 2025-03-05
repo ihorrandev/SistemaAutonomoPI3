@@ -1,38 +1,63 @@
 using AutoSystem_KingMe.Models.Entity;
+using System.Text.RegularExpressions;
+using MatchEntity = AutoSystem_KingMe.Models.Entity.Match;
+
 
 namespace AutoSystem_KingMe
 {
-    public partial class Lobby : Form
-    {
-        public Lobby()
-        {
-            InitializeComponent();
-        }
+	public partial class Lobby : Form
+	{
+		public static string globalMatchId;
+		public Lobby()
+		{
+			InitializeComponent();
+		}
 
-        private void btnGetMatches_Click(object sender, EventArgs e)
-        {
-            lboMatches.Items.Clear();
-            string? statusSelected = cboMatchesStatus.SelectedItem?.ToString()?.Substring(0, 1);
-            var matches = Matche.GetMatches(statusSelected);
 
-            foreach (var matche in matches)
-            {
-                string statusDescription = matche.Status switch
-                {
-                    "A" => "A - Aberta",
-                    "J" => "J - Em Jogo",
-                    "E" => "E - Encerrada",
-                    _ => string.Empty,
-                };
+		private void btnGetMatchs_Click(object sender, EventArgs e)
+		{
+			lboMatchs.Items.Clear();
+			string? statusSelected = cboMatchsStatus.SelectedItem?.ToString()?.Substring(0, 1);
+			var matchs = MatchEntity.GetMatchs(statusSelected);
 
-                lboMatches.Items.Add($"{matche.Id} - {matche.Name} | {statusDescription} | {matche.CreationDate}");
-            }
-        }
+			foreach (var match in matchs)
+			{
+				string statusDescription = match.Status switch
+				{
+					"A" => "A - Aberta",
+					"J" => "J - Em Jogo",
+					"E" => "E - Encerrada",
+					_ => string.Empty,
+				};
 
-        private void Lobby_Load(object sender, EventArgs e)
-        {
-            cboMatchesStatus.SelectedIndex = 0;
+				lboMatchs.Items.Add($"{match.Id} - {match.Name} | {statusDescription} | {match.CreationDate}");
+			}
+		}
 
-        }
-    }
+		private void Lobby_Load(object sender, EventArgs e)
+		{
+			cboMatchsStatus.SelectedIndex = 0;
+
+		}
+
+		private void btnCreateMatch_Click(object sender, EventArgs e)
+		{
+			string name = txtBox_nomePartida.Text;
+			string password = txtBox_senhaPartida.Text;
+			string nameGroup = txtBox_nomeGrupo.Text;
+
+			string tempResponse = MatchEntity.CreateMatch(name, password, nameGroup);
+			if (!tempResponse.StartsWith("ERRO"))
+			{
+				globalMatchId = tempResponse;
+				lblCreationMatchResponse.Text = $"ID da Partida: {globalMatchId}";
+			}
+			else
+			{
+				lblCreationMatchResponse.Text = $"{tempResponse}";
+			}
+		}
+
+
+	}
 }
