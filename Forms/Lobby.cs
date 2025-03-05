@@ -7,13 +7,12 @@ namespace AutoSystem_KingMe
 {
 	public partial class Lobby : Form
 	{
+		public static string globalMatchId;
 		public Lobby()
 		{
 			InitializeComponent();
 		}
 
-		//Id da partida salvo globalmente
-		private string globalMatchId;
 
 		private void btnGetMatchs_Click(object sender, EventArgs e)
 		{
@@ -47,7 +46,7 @@ namespace AutoSystem_KingMe
 			string password = txtBox_senhaPartida.Text;
 			string nameGroup = txtBox_nomeGrupo.Text;
 
-			string globalMatchId = MatchEntity.CreateMatch(name, password, nameGroup);
+			globalMatchId = MatchEntity.CreateMatch(name, password, nameGroup);
 			if (!string.IsNullOrEmpty(globalMatchId))
 			{
 				lblCreationMatchResponse.Text = $"ID da Partida: {globalMatchId}";
