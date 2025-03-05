@@ -28,62 +28,62 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			btnGetMatches = new Button();
+			btnGetMatchs = new Button();
 			panel1 = new Panel();
-			lboMatches = new ListBox();
+			lboMatchs = new ListBox();
 			label3 = new Label();
 			label2 = new Label();
-			cboMatchesStatus = new ComboBox();
+			cboMatchsStatus = new ComboBox();
 			label1 = new Label();
 			panel2 = new Panel();
 			label9 = new Label();
 			label8 = new Label();
 			label6 = new Label();
-			label5 = new Label();
+			lblCreationMatchResponse = new Label();
 			txtBox_senhaPartida = new TextBox();
 			txtBox_nomeGrupo = new TextBox();
 			txtBox_nomePartida = new TextBox();
-			createMatch = new Button();
+			btnCreateMatch = new Button();
 			label4 = new Label();
 			panel1.SuspendLayout();
 			panel2.SuspendLayout();
 			SuspendLayout();
 			// 
-			// btnGetMatches
+			// btnGetMatchs
 			// 
-			btnGetMatches.AllowDrop = true;
-			btnGetMatches.Location = new Point(203, 22);
-			btnGetMatches.Margin = new Padding(3, 2, 3, 2);
-			btnGetMatches.Name = "btnGetMatches";
-			btnGetMatches.Size = new Size(137, 33);
-			btnGetMatches.TabIndex = 0;
-			btnGetMatches.Text = "Consultar partidas";
-			btnGetMatches.UseVisualStyleBackColor = true;
-			btnGetMatches.Click += btnGetMatches_Click;
+			btnGetMatchs.AllowDrop = true;
+			btnGetMatchs.Location = new Point(203, 22);
+			btnGetMatchs.Margin = new Padding(3, 2, 3, 2);
+			btnGetMatchs.Name = "btnGetMatchs";
+			btnGetMatchs.Size = new Size(137, 33);
+			btnGetMatchs.TabIndex = 0;
+			btnGetMatchs.Text = "Consultar partidas";
+			btnGetMatchs.UseVisualStyleBackColor = true;
+			btnGetMatchs.Click += btnGetMatchs_Click;
 			// 
 			// panel1
 			// 
 			panel1.BorderStyle = BorderStyle.FixedSingle;
-			panel1.Controls.Add(lboMatches);
+			panel1.Controls.Add(lboMatchs);
 			panel1.Controls.Add(label3);
 			panel1.Controls.Add(label2);
-			panel1.Controls.Add(cboMatchesStatus);
-			panel1.Controls.Add(btnGetMatches);
+			panel1.Controls.Add(cboMatchsStatus);
+			panel1.Controls.Add(btnGetMatchs);
 			panel1.Location = new Point(10, 22);
 			panel1.Margin = new Padding(3, 2, 3, 2);
 			panel1.Name = "panel1";
 			panel1.Size = new Size(363, 339);
 			panel1.TabIndex = 3;
 			// 
-			// lboMatches
+			// lboMatchs
 			// 
-			lboMatches.FormattingEnabled = true;
-			lboMatches.ItemHeight = 15;
-			lboMatches.Location = new Point(21, 80);
-			lboMatches.Margin = new Padding(3, 2, 3, 2);
-			lboMatches.Name = "lboMatches";
-			lboMatches.Size = new Size(320, 244);
-			lboMatches.TabIndex = 14;
+			lboMatchs.FormattingEnabled = true;
+			lboMatchs.ItemHeight = 15;
+			lboMatchs.Location = new Point(21, 80);
+			lboMatchs.Margin = new Padding(3, 2, 3, 2);
+			lboMatchs.Name = "lboMatchs";
+			lboMatchs.Size = new Size(320, 244);
+			lboMatchs.TabIndex = 14;
 			// 
 			// label3
 			// 
@@ -105,16 +105,16 @@
 			label2.TabIndex = 12;
 			label2.Text = "Status";
 			// 
-			// cboMatchesStatus
+			// cboMatchsStatus
 			// 
-			cboMatchesStatus.CausesValidation = false;
-			cboMatchesStatus.FormattingEnabled = true;
-			cboMatchesStatus.Items.AddRange(new object[] { "T - Todas", "A - Abertas", "J - Em Jogo", "E - Encerradas" });
-			cboMatchesStatus.Location = new Point(21, 33);
-			cboMatchesStatus.Margin = new Padding(3, 2, 3, 2);
-			cboMatchesStatus.Name = "cboMatchesStatus";
-			cboMatchesStatus.Size = new Size(169, 23);
-			cboMatchesStatus.TabIndex = 10;
+			cboMatchsStatus.CausesValidation = false;
+			cboMatchsStatus.FormattingEnabled = true;
+			cboMatchsStatus.Items.AddRange(new object[] { "T - Todas", "A - Abertas", "J - Em Jogo", "E - Encerradas" });
+			cboMatchsStatus.Location = new Point(21, 33);
+			cboMatchsStatus.Margin = new Padding(3, 2, 3, 2);
+			cboMatchsStatus.Name = "cboMatchsStatus";
+			cboMatchsStatus.Size = new Size(169, 23);
+			cboMatchsStatus.TabIndex = 10;
 			// 
 			// label1
 			// 
@@ -132,11 +132,11 @@
 			panel2.Controls.Add(label9);
 			panel2.Controls.Add(label8);
 			panel2.Controls.Add(label6);
-			panel2.Controls.Add(label5);
+			panel2.Controls.Add(lblCreationMatchResponse);
 			panel2.Controls.Add(txtBox_senhaPartida);
 			panel2.Controls.Add(txtBox_nomeGrupo);
 			panel2.Controls.Add(txtBox_nomePartida);
-			panel2.Controls.Add(createMatch);
+			panel2.Controls.Add(btnCreateMatch);
 			panel2.Location = new Point(389, 22);
 			panel2.Name = "panel2";
 			panel2.Size = new Size(218, 339);
@@ -169,14 +169,14 @@
 			label6.TabIndex = 15;
 			label6.Text = "Senha da Partida:";
 			// 
-			// label5
+			// lblCreationMatchResponse
 			// 
-			label5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			label5.Location = new Point(44, 216);
-			label5.Name = "label5";
-			label5.Size = new Size(111, 15);
-			label5.TabIndex = 14;
-			label5.Text = "ID da Partida:";
+			lblCreationMatchResponse.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			lblCreationMatchResponse.Location = new Point(44, 216);
+			lblCreationMatchResponse.Name = "lblCreationMatchResponse";
+			lblCreationMatchResponse.Size = new Size(111, 15);
+			lblCreationMatchResponse.TabIndex = 14;
+			lblCreationMatchResponse.Text = "ID da Partida:";
 			// 
 			// txtBox_senhaPartida
 			// 
@@ -199,15 +199,15 @@
 			txtBox_nomePartida.Size = new Size(124, 23);
 			txtBox_nomePartida.TabIndex = 1;
 			// 
-			// createMatch
+			// btnCreateMatch
 			// 
-			createMatch.Location = new Point(44, 269);
-			createMatch.Name = "createMatch";
-			createMatch.Size = new Size(124, 23);
-			createMatch.TabIndex = 0;
-			createMatch.Text = "Criar Partida";
-			createMatch.UseVisualStyleBackColor = true;
-			createMatch.Click += createMatch_Click_1;
+			btnCreateMatch.Location = new Point(44, 269);
+			btnCreateMatch.Name = "btnCreateMatch";
+			btnCreateMatch.Size = new Size(124, 23);
+			btnCreateMatch.TabIndex = 0;
+			btnCreateMatch.Text = "Criar Partida";
+			btnCreateMatch.UseVisualStyleBackColor = true;
+			btnCreateMatch.Click += btnCreateMatch_Click;
 			// 
 			// label4
 			// 
@@ -244,22 +244,22 @@
 
 		#endregion
 
-		private Button btnGetMatches;
+		private Button btnGetMatchs;
         private Panel panel1;
-        private ComboBox cboMatchesStatus;
+        private ComboBox cboMatchsStatus;
         private Label label1;
         private Label label2;
-        private ListBox lboMatches;
+        private ListBox lboMatchs;
         private Label label3;
 		private Panel panel2;
 		private Label label4;
-		private Button createMatch;
+		private Button btnCreateMatch;
 		private TextBox txtBox_senhaPartida;
 		private TextBox txtBox_nomeGrupo;
 		private TextBox txtBox_nomePartida;
 		private Label label9;
 		private Label label8;
 		private Label label6;
-		private Label label5;
+		private Label lblCreationMatchResponse;
 	}
 }
