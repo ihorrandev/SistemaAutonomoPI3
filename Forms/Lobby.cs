@@ -46,9 +46,10 @@ namespace AutoSystem_KingMe
 			string password = txtBox_senhaPartida.Text;
 			string nameGroup = txtBox_nomeGrupo.Text;
 
-			globalMatchId = MatchEntity.CreateMatch(name, password, nameGroup);
+			string tempMatchId = MatchEntity.CreateMatch(name, password, nameGroup);
 			if (!globalMatchId.StartsWith("ERRO"))
 			{
+				globalMatchId = tempMatchId;
 				lblCreationMatchResponse.Text = $"ID da Partida: {globalMatchId}";
 			}
 			else
