@@ -1,5 +1,6 @@
 using AutoSystem_KingMe.Models.Entities;
 using AutoSystem_KingMe.Models.Entity;
+using KingMeServer;
 using System.Text.RegularExpressions;
 using MatchEntity = AutoSystem_KingMe.Models.Entity.Match;
 using PlayerEntity = AutoSystem_KingMe.Models.Entities.Player;
@@ -13,6 +14,7 @@ namespace AutoSystem_KingMe
         public Lobby()
         {
             InitializeComponent();
+            lbVersion.Text = $"{lbVersion.Text} {Jogo.versao}";
         }
 
 
@@ -57,7 +59,8 @@ namespace AutoSystem_KingMe
             else
             {
                 lblCreationMatchResponse.Text = $"{tempResponse}";
-            }
+
+			}
         }
 
         private void btnListPlayers_Click(object sender, EventArgs e)
@@ -66,13 +69,17 @@ namespace AutoSystem_KingMe
             string matchId = txtBox_idPartida.Text;
             List<Player> players = Player.GetPlayers(matchId);
 
-            if (players == null || players.Count == 0 || players[0].Name.StartsWith("ERRO"))
+            if (players == null || players.Count == 1)
             {
-                lblListPlayerResponse.Text = "ERRO: Partida Inexistente!";
-            }
-            else
+				lblListPlayerResponse.Text = $"Partida sem jogadores!";
+
+			} else if (players[0].Name.StartsWith("ERRO"))
             {
-                foreach (var player in players)
+				lblListPlayerResponse.Text = $"{players}";
+			} else
+            {
+				lblListPlayerResponse.Text = string.Empty;
+				foreach (var player in players)
                 {
                     if (player.Id != "")
                     {
