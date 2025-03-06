@@ -1,63 +1,87 @@
+using AutoSystem_KingMe.Models.Entities;
 using AutoSystem_KingMe.Models.Entity;
 using System.Text.RegularExpressions;
 using MatchEntity = AutoSystem_KingMe.Models.Entity.Match;
+using PlayerEntity = AutoSystem_KingMe.Models.Entities.Player;
 
 
 namespace AutoSystem_KingMe
 {
-	public partial class Lobby : Form
-	{
-		public static string globalMatchId;
-		public Lobby()
-		{
-			InitializeComponent();
-		}
+    public partial class Lobby : Form
+    {
+        public static string globalMatchId;
+        public Lobby()
+        {
+            InitializeComponent();
+        }
 
 
-		private void btnGetMatchs_Click(object sender, EventArgs e)
-		{
-			lboMatchs.Items.Clear();
-			string? statusSelected = cboMatchsStatus.SelectedItem?.ToString()?.Substring(0, 1);
-			var matchs = MatchEntity.GetMatchs(statusSelected);
+        private void btnGetMatchs_Click(object sender, EventArgs e)
+        {
+            lboMatchs.Items.Clear();
+            string? statusSelected = cboMatchsStatus.SelectedItem?.ToString()?.Substring(0, 1);
+            var matchs = MatchEntity.GetMatchs(statusSelected);
 
-			foreach (var match in matchs)
-			{
-				string statusDescription = match.Status switch
-				{
-					"A" => "A - Aberta",
-					"J" => "J - Em Jogo",
-					"E" => "E - Encerrada",
-					_ => string.Empty,
-				};
+            foreach (var match in matchs)
+            {
+                string statusDescription = match.Status switch
+                {
+                    "A" => "A - Aberta",
+                    "J" => "J - Em Jogo",
+                    "E" => "E - Encerrada",
+                    _ => string.Empty,
+                };
 
-				lboMatchs.Items.Add($"{match.Id} - {match.Name} | {statusDescription} | {match.CreationDate}");
-			}
-		}
+                lboMatchs.Items.Add($"{match.Id} - {match.Name} | {statusDescription} | {match.CreationDate}");
+            }
+        }
 
-		private void Lobby_Load(object sender, EventArgs e)
-		{
-			cboMatchsStatus.SelectedIndex = 0;
+        private void Lobby_Load(object sender, EventArgs e)
+        {
+            cboMatchsStatus.SelectedIndex = 0;
 
-		}
+        }
 
-		private void btnCreateMatch_Click(object sender, EventArgs e)
-		{
-			string name = txtBox_nomePartida.Text;
-			string password = txtBox_senhaPartida.Text;
-			string nameGroup = txtBox_nomeGrupo.Text;
+        private void btnCreateMatch_Click(object sender, EventArgs e)
+        {
+            string name = txtBox_nomePartida.Text;
+            string password = txtBox_senhaPartida.Text;
+            string nameGroup = txtBox_nomeGrupo.Text;
 
-			string tempResponse = MatchEntity.CreateMatch(name, password, nameGroup);
-			if (!tempResponse.StartsWith("ERRO"))
-			{
-				globalMatchId = tempResponse;
-				lblCreationMatchResponse.Text = $"ID da Partida: {globalMatchId}";
-			}
-			else
-			{
-				lblCreationMatchResponse.Text = $"{tempResponse}";
-			}
-		}
+            string tempResponse = MatchEntity.CreateMatch(name, password, nameGroup);
+            if (!tempResponse.StartsWith("ERRO"))
+            {
+                globalMatchId = tempResponse;
+                lblCreationMatchResponse.Text = $"ID da Partida: {globalMatchId}";
+            }
+            else
+            {
+                lblCreationMatchResponse.Text = $"{tempResponse}";
+            }
+        }
 
+        private void btnListPlayers_Click(object sender, EventArgs e)
+        {
+            lboPlayers.Items.Clear();
+            string matchId = txtBox_idPartida.Text;
+            List<Player> players = Player.GetPlayers(matchId);
 
-	}
+            if (players == null || players.Count == 0 || players[0].Name.StartsWith("ERRO"))
+            {
+                lblListPlayerResponse.Text = "ERRO: Partida Inexistente!";
+            }
+            else
+            {
+                foreach (var player in players)
+                {
+                    if (player.Id != "")
+                    {
+                        lboPlayers.Items.Add($"ID: {player.Id} | Nome: {player.Name} | Pontos: {player.Score}");
+                    }
+                }
+            } 
+            
+        }
+    
+    }
 }
