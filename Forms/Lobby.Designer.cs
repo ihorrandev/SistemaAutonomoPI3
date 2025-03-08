@@ -41,7 +41,6 @@
 			label6 = new Label();
 			lblCreationMatchResponse = new Label();
 			txtBox_senhaPartida = new TextBox();
-			txtBox_nomeGrupo = new TextBox();
 			txtBox_nomePartida = new TextBox();
 			btnCreateMatch = new Button();
 			label4 = new Label();
@@ -54,6 +53,7 @@
 			btnListPlayers = new Button();
 			lbVersion = new Label();
 			lbGroup = new Label();
+			label7 = new Label();
 			panel1.SuspendLayout();
 			panel2.SuspendLayout();
 			panel4.SuspendLayout();
@@ -139,12 +139,12 @@
 			// panel2
 			// 
 			panel2.BorderStyle = BorderStyle.FixedSingle;
+			panel2.Controls.Add(label7);
 			panel2.Controls.Add(label9);
 			panel2.Controls.Add(label8);
 			panel2.Controls.Add(label6);
 			panel2.Controls.Add(lblCreationMatchResponse);
 			panel2.Controls.Add(txtBox_senhaPartida);
-			panel2.Controls.Add(txtBox_nomeGrupo);
 			panel2.Controls.Add(txtBox_nomePartida);
 			panel2.Controls.Add(btnCreateMatch);
 			panel2.Location = new Point(389, 22);
@@ -164,7 +164,7 @@
 			// label8
 			// 
 			label8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			label8.Location = new Point(44, 88);
+			label8.Location = new Point(44, 95);
 			label8.Name = "label8";
 			label8.Size = new Size(111, 15);
 			label8.TabIndex = 16;
@@ -194,13 +194,6 @@
 			txtBox_senhaPartida.Name = "txtBox_senhaPartida";
 			txtBox_senhaPartida.Size = new Size(124, 23);
 			txtBox_senhaPartida.TabIndex = 3;
-			// 
-			// txtBox_nomeGrupo
-			// 
-			txtBox_nomeGrupo.Location = new Point(44, 109);
-			txtBox_nomeGrupo.Name = "txtBox_nomeGrupo";
-			txtBox_nomeGrupo.Size = new Size(124, 23);
-			txtBox_nomeGrupo.TabIndex = 2;
 			// 
 			// txtBox_nomePartida
 			// 
@@ -314,6 +307,15 @@
 			lbGroup.TabIndex = 19;
 			lbGroup.Text = "Grupo: Arqueiros de Agincourt";
 			// 
+			// label7
+			// 
+			label7.AutoSize = true;
+			label7.Location = new Point(44, 110);
+			label7.Name = "label7";
+			label7.Size = new Size(130, 15);
+			label7.TabIndex = 18;
+			label7.Text = "Arqueiros de Agincourt";
+			// 
 			// Lobby
 			// 
 			AllowDrop = true;
@@ -356,7 +358,6 @@
 		private Label label4;
 		private Button btnCreateMatch;
 		private TextBox txtBox_senhaPartida;
-		private TextBox txtBox_nomeGrupo;
 		private TextBox txtBox_nomePartida;
 		private Label label9;
 		private Label label8;
@@ -371,5 +372,6 @@
         private Label lblListPlayerResponse;
 		private Label lbVersion;
 		private Label lbGroup;
+		private Label label7;
 	}
 }
