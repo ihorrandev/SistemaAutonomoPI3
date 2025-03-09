@@ -29,5 +29,10 @@ namespace AutoSystem_KingMe.Models.Entity
 		{
 			return Jogo.CriarPartida(nameMatch, passwordMatch, nameGroup);
 		}
+
+		public static string EnterMatch(int idMatch, string playerName, string passwordMatch)
+		{
+			return Jogo.Entrar(idMatch,playerName,passwordMatch);
+		}
 	}
 }
