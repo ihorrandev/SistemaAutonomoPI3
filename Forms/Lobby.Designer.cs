@@ -53,10 +53,22 @@
 			btnListPlayers = new Button();
 			lbVersion = new Label();
 			lbGroup = new Label();
+			panel3 = new Panel();
+			lblWarningError = new Label();
+			lblPasswordPlayer = new Label();
+			lblIdPlayer = new Label();
+			txtBox_PlayerName = new TextBox();
+			label12 = new Label();
+			txtBox_PasswordMatch = new TextBox();
+			label11 = new Label();
+			txtBox_IdMatch = new TextBox();
+			label10 = new Label();
+			btnEnterMatch = new Button();
 			label7 = new Label();
 			panel1.SuspendLayout();
 			panel2.SuspendLayout();
 			panel4.SuspendLayout();
+			panel3.SuspendLayout();
 			SuspendLayout();
 			// 
 			// btnGetMatchs
@@ -292,7 +304,7 @@
 			// lbVersion
 			// 
 			lbVersion.AutoSize = true;
-			lbVersion.Location = new Point(439, 751);
+			lbVersion.Location = new Point(355, 773);
 			lbVersion.Name = "lbVersion";
 			lbVersion.Size = new Size(48, 15);
 			lbVersion.TabIndex = 18;
@@ -301,27 +313,131 @@
 			// lbGroup
 			// 
 			lbGroup.AutoSize = true;
-			lbGroup.Location = new Point(439, 736);
+			lbGroup.Location = new Point(153, 773);
 			lbGroup.Name = "lbGroup";
 			lbGroup.Size = new Size(169, 15);
 			lbGroup.TabIndex = 19;
 			lbGroup.Text = "Grupo: Arqueiros de Agincourt";
 			// 
+			// panel3
+			// 
+			panel3.BorderStyle = BorderStyle.FixedSingle;
+			panel3.Controls.Add(lblWarningError);
+			panel3.Controls.Add(lblPasswordPlayer);
+			panel3.Controls.Add(lblIdPlayer);
+			panel3.Controls.Add(txtBox_PlayerName);
+			panel3.Controls.Add(label12);
+			panel3.Controls.Add(txtBox_PasswordMatch);
+			panel3.Controls.Add(label11);
+			panel3.Controls.Add(txtBox_IdMatch);
+			panel3.Controls.Add(label10);
+			panel3.Controls.Add(btnEnterMatch);
+			panel3.Location = new Point(389, 387);
+			panel3.Name = "panel3";
+			panel3.Size = new Size(219, 362);
+			panel3.TabIndex = 20;
+			// 
+			// lblWarningError
+			// 
+			lblWarningError.ForeColor = Color.Red;
+			lblWarningError.Location = new Point(-1, 289);
+			lblWarningError.Name = "lblWarningError";
+			lblWarningError.Size = new Size(218, 33);
+			lblWarningError.TabIndex = 10;
+			// 
+			// lblPasswordPlayer
+			// 
+			lblPasswordPlayer.Location = new Point(30, 256);
+			lblPasswordPlayer.Name = "lblPasswordPlayer";
+			lblPasswordPlayer.Size = new Size(156, 22);
+			lblPasswordPlayer.TabIndex = 9;
+			lblPasswordPlayer.Text = "Senha do Jogador:";
+			// 
+			// lblIdPlayer
+			// 
+			lblIdPlayer.Location = new Point(30, 223);
+			lblIdPlayer.Name = "lblIdPlayer";
+			lblIdPlayer.Size = new Size(156, 22);
+			lblIdPlayer.TabIndex = 8;
+			lblIdPlayer.Text = "ID do Jogador:";
+			// 
+			// txtBox_PlayerName
+			// 
+			txtBox_PlayerName.Location = new Point(33, 56);
+			txtBox_PlayerName.Name = "txtBox_PlayerName";
+			txtBox_PlayerName.Size = new Size(151, 23);
+			txtBox_PlayerName.TabIndex = 7;
+			// 
+			// label12
+			// 
+			label12.AutoSize = true;
+			label12.Location = new Point(34, 159);
+			label12.Name = "label12";
+			label12.Size = new Size(98, 15);
+			label12.TabIndex = 6;
+			label12.Text = "Senha da partida:";
+			// 
+			// txtBox_PasswordMatch
+			// 
+			txtBox_PasswordMatch.Location = new Point(33, 178);
+			txtBox_PasswordMatch.Name = "txtBox_PasswordMatch";
+			txtBox_PasswordMatch.Size = new Size(151, 23);
+			txtBox_PasswordMatch.TabIndex = 5;
+			// 
+			// label11
+			// 
+			label11.AutoSize = true;
+			label11.Location = new Point(30, 98);
+			label11.Name = "label11";
+			label11.Size = new Size(77, 15);
+			label11.TabIndex = 4;
+			label11.Text = "ID da partida:";
+			// 
+			// txtBox_IdMatch
+			// 
+			txtBox_IdMatch.Location = new Point(33, 116);
+			txtBox_IdMatch.Name = "txtBox_IdMatch";
+			txtBox_IdMatch.Size = new Size(151, 23);
+			txtBox_IdMatch.TabIndex = 3;
+			// 
+			// label10
+			// 
+			label10.AutoSize = true;
+			label10.Location = new Point(30, 38);
+			label10.Name = "label10";
+			label10.Size = new Size(105, 15);
+			label10.TabIndex = 1;
+			label10.Text = "Nome do Jogador:";
+			// 
+			// btnEnterMatch
+			// 
+			btnEnterMatch.Location = new Point(33, 326);
+			btnEnterMatch.Name = "btnEnterMatch";
+			btnEnterMatch.Size = new Size(109, 23);
+			btnEnterMatch.TabIndex = 0;
+			btnEnterMatch.Text = "Entrar na Partida";
+			btnEnterMatch.UseVisualStyleBackColor = true;
+			btnEnterMatch.Click += btnEnterMatch_Click;
+			// 
 			// label7
 			// 
 			label7.AutoSize = true;
-			label7.Location = new Point(44, 110);
+			label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+			label7.Location = new Point(406, 380);
 			label7.Name = "label7";
-			label7.Size = new Size(130, 15);
-			label7.TabIndex = 18;
-			label7.Text = "Arqueiros de Agincourt";
+			label7.Size = new Size(99, 15);
+			label7.TabIndex = 21;
+			label7.Text = "Entrar na partida";
 			// 
 			// Lobby
 			// 
 			AllowDrop = true;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(620, 797);
+			BackColor = SystemColors.Control;
+			ClientSize = new Size(628, 802);
+			Controls.Add(label7);
+			Controls.Add(panel3);
 			Controls.Add(lbGroup);
 			Controls.Add(lbVersion);
 			Controls.Add(label13);
@@ -341,6 +457,8 @@
 			panel2.PerformLayout();
 			panel4.ResumeLayout(false);
 			panel4.PerformLayout();
+			panel3.ResumeLayout(false);
+			panel3.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -372,6 +490,17 @@
         private Label lblListPlayerResponse;
 		private Label lbVersion;
 		private Label lbGroup;
+		private Panel panel3;
 		private Label label7;
+		private Button btnEnterMatch;
+		private Label label10;
+		private TextBox txtBox_IdMatch;
+		private Label label12;
+		private TextBox txtBox_PasswordMatch;
+		private Label label11;
+		private TextBox txtBox_PlayerName;
+		private Label lblPasswordPlayer;
+		private Label lblIdPlayer;
+		private Label lblWarningError;
 	}
 }
