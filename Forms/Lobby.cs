@@ -48,7 +48,7 @@ namespace AutoSystem_KingMe
         {
             string name = txtBox_nomePartida.Text;
             string password = txtBox_senhaPartida.Text;
-            string nameGroup = txtBox_nomeGrupo.Text;
+            string nameGroup = "Arqueiros de Agincourt";
 
             string tempResponse = MatchEntity.CreateMatch(name, password, nameGroup);
             if (!tempResponse.StartsWith("ERRO"))
