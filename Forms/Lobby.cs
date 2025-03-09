@@ -45,11 +45,11 @@ namespace AutoSystem_KingMe
 
 		}
 
-		private void btnCreateMatch_Click(object sender, EventArgs e)
-		{
-			string name = txtBox_nomePartida.Text;
-			string password = txtBox_senhaPartida.Text;
-			string nameGroup = txtBox_nomeGrupo.Text;
+        private void btnCreateMatch_Click(object sender, EventArgs e)
+        {
+            string name = txtBox_nomePartida.Text;
+            string password = txtBox_senhaPartida.Text;
+            string nameGroup = "Arqueiros de Agincourt";
 
 			string tempResponse = MatchEntity.CreateMatch(name, password, nameGroup);
 			if (!tempResponse.StartsWith("ERRO"))
