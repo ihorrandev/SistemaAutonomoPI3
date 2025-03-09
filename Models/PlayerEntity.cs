@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoSystem_KingMe.Helper;
-using AutoSystem_KingMe.Models.Entities.Common;
+using AutoSystem_KingMe.Models.Common;
 using AutoSystem_KingMe.Models.Entities.Common.Attributes;
 using KingMeServer;
 
-namespace AutoSystem_KingMe.Models.Entities
+namespace AutoSystem_KingMe.Models
 {
-    public class Player : EntityBase
+    public class PlayerEntity : EntityBase
     {
         [Position(0)]
         public string Id { get; set; }
@@ -21,12 +21,11 @@ namespace AutoSystem_KingMe.Models.Entities
         [Position(2)]
         public string Score { get; set; }
 
-        public static List<Player> GetPlayers(string matchId) 
+        public static List<PlayerEntity> GetPlayers(string matchId)
         {
             var response = Jogo.ListarJogadores(Convert.ToInt32(matchId));
-            return response.HandleReponse<Player>();
+            return response.HandleReponse<PlayerEntity>();
         }
 
     }
 }
-    

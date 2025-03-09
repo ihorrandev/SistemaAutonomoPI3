@@ -1,42 +1,37 @@
-using AutoSystem_KingMe.Models.Entities;
-using AutoSystem_KingMe.Models.Entity;
+using AutoSystem_KingMe.Models;
+using AutoSystem_KingMe.Services;
 using KingMeServer;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using MatchEntity = AutoSystem_KingMe.Models.Entity.Match;
-using PlayerEntity = AutoSystem_KingMe.Models.Entities.Player;
-
+using MatchForm = AutoSystem_KingMe.Forms.Match;
 
 namespace AutoSystem_KingMe
 {
-	public partial class Lobby : Form
+    public partial class Lobby : Form
 	{
 		public static string globalMatchId;
+
 		public Lobby()
 		{
 			InitializeComponent();
 			lbVersion.Text = $"{lbVersion.Text} {Jogo.versao}";
 		}
 
-
 		private void btnGetMatchs_Click(object sender, EventArgs e)
 		{
-			lboMatchs.Items.Clear();
+			lblGetMatchesResponse.Text = string.Empty;
+            lboMatchs.Items.Clear();
+
 			string? statusSelected = cboMatchsStatus.SelectedItem?.ToString()?.Substring(0, 1);
-			var matchs = MatchEntity.GetMatchs(statusSelected);
+			var gameResponse = MatchService.GetMatches(statusSelected);
 
-			foreach (var match in matchs)
+			if (gameResponse.IsSuccess)
 			{
-				string statusDescription = match.Status switch
-				{
-					"A" => "A - Aberta",
-					"J" => "J - Em Jogo",
-					"E" => "E - Encerrada",
-					_ => string.Empty,
-				};
-
-				lboMatchs.Items.Add($"{match.Id} - {match.Name} | {statusDescription} | {match.CreationDate}");
+				gameResponse.Entities!
+					.ForEach(match => lboMatchs.Items.Add(match));
 			}
+			else
+			{
+				lblGetMatchesResponse.Text = gameResponse.ErrorMessage;
+            }
 		}
 
 		private void Lobby_Load(object sender, EventArgs e)
@@ -68,7 +63,7 @@ namespace AutoSystem_KingMe
 		{
 			lboPlayers.Items.Clear();
 			string matchId = txtBox_idPartida.Text;
-			List<Player> players = Player.GetPlayers(matchId);
+			List<PlayerEntity> players = PlayerEntity.GetPlayers(matchId);
 
 			if (players == null || players.Count == 1)
 			{
@@ -119,8 +114,15 @@ namespace AutoSystem_KingMe
 					string passwordPlayer = enterMatchPlayer[1].Trim();
 
 					lblIdPlayer.Text = $"ID do Jogador: {idPlayer}"; lblPasswordPlayer.Text = $"Senha do Jogador: {passwordPlayer}";
-				}
-				else
+
+
+					this.Hide();
+					var matchForm = new MatchForm();
+					matchForm.ShowDialog();
+
+					this.Close();
+                }
+                else
 				{
 					string[] error = tempResponse.Split(':');
 					lblWarningError.Text = $"{error[0]}:{error[1]}";

@@ -28,18 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            button1 = new Button();
             SuspendLayout();
+            // 
+            // button1
+            // 
+            button1.Location = new Point(12, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(104, 29);
+            button1.TabIndex = 0;
+            button1.Text = "Iniciar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Match
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1242, 640);
+            Controls.Add(button1);
             Name = "Match";
             Text = "Match";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button button1;
     }
 }
