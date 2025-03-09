@@ -96,6 +96,8 @@ namespace AutoSystem_KingMe
 		private void btnEnterMatch_Click(object sender, EventArgs e)
 		{
 			lblWarningError.Text = "";
+			lblIdPlayer.Text = "";
+			lblPasswordPlayer.Text = "";
 
 			string namePlayer = txtBox_PlayerName.Text;
 			int idMatch;
@@ -116,13 +118,12 @@ namespace AutoSystem_KingMe
 					string idPlayer = enterMatchPlayer[0].Trim();
 					string passwordPlayer = enterMatchPlayer[1].Trim();
 
-					lblIdPlayer.Text = idPlayer; lblPasswordPlayer.Text = passwordPlayer;
+					lblIdPlayer.Text = $"ID do Jogador: {idPlayer}"; lblPasswordPlayer.Text = $"Senha do Jogador: {passwordPlayer}";
 				}
 				else
 				{
 					string[] error = tempResponse.Split(':');
 					lblWarningError.Text = $"{error[0]}:{error[1]}";
-
 				}
 			}
 

@@ -359,7 +359,7 @@
 			lblPasswordPlayer.Name = "lblPasswordPlayer";
 			lblPasswordPlayer.Size = new Size(156, 22);
 			lblPasswordPlayer.TabIndex = 9;
-			lblPasswordPlayer.Text = "Senha do jogador:";
+			lblPasswordPlayer.Text = "Senha do Jogador:";
 			// 
 			// lblIdPlayer
 			// 
@@ -367,7 +367,7 @@
 			lblIdPlayer.Name = "lblIdPlayer";
 			lblIdPlayer.Size = new Size(156, 22);
 			lblIdPlayer.TabIndex = 8;
-			lblIdPlayer.Text = "Id do jogador:";
+			lblIdPlayer.Text = "ID do Jogador:";
 			// 
 			// txtBox_PlayerName
 			// 
