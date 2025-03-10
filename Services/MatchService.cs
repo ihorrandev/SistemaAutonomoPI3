@@ -10,5 +10,9 @@ namespace AutoSystem_KingMe.Services
         public static GameResponse<MatchEntity> GetMatches(string? status = "T") =>
             Jogo.ListarPartidas(status)
                 .HandleReponse<MatchEntity>();
+
+        public static string CreateMatch(string nameMatch, string passwordMatch, string nameGroup) =>
+            Jogo.CriarPartida(nameMatch, passwordMatch, nameGroup);
+       
     }
 }

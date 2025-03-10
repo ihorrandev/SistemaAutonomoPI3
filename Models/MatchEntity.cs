@@ -1,7 +1,5 @@
-﻿using AutoSystem_KingMe.Helper;
-using AutoSystem_KingMe.Models.Common;
+﻿using AutoSystem_KingMe.Models.Common;
 using AutoSystem_KingMe.Models.Common.Attributes;
-using AutoSystem_KingMe.Models.Entities.Common.Attributes;
 using KingMeServer;
 
 namespace AutoSystem_KingMe.Models
@@ -32,7 +30,6 @@ namespace AutoSystem_KingMe.Models
 
             return $"{Id} - {Name} | {statusDescription} | {CreationDate}";
         }
-
 
         public static string CreateMatch(string nameMatch, string passwordMatch, string nameGroup)
         {

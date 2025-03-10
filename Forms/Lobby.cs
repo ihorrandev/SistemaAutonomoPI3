@@ -7,8 +7,6 @@ namespace AutoSystem_KingMe
 {
     public partial class Lobby : Form
 	{
-		public static string globalMatchId;
-
 		public Lobby()
 		{
 			InitializeComponent();
@@ -37,7 +35,6 @@ namespace AutoSystem_KingMe
 		private void Lobby_Load(object sender, EventArgs e)
 		{
 			cboMatchsStatus.SelectedIndex = 0;
-
 		}
 
         private void btnCreateMatch_Click(object sender, EventArgs e)
@@ -46,18 +43,14 @@ namespace AutoSystem_KingMe
             string password = txtBox_senhaPartida.Text;
             string nameGroup = "Arqueiros de Agincourt";
 
-			string tempResponse = MatchEntity.CreateMatch(name, password, nameGroup);
-			if (!tempResponse.StartsWith("ERRO"))
-			{
-				globalMatchId = tempResponse;
-				lblCreationMatchResponse.Text = $"ID da Partida: {globalMatchId}";
-			}
-			else
-			{
-				lblCreationMatchResponse.Text = $"{tempResponse}";
+			string gameResponse = MatchEntity.CreateMatch(name, password, nameGroup);
+			string labelText = string.Empty;
 
-			}
-		}
+			if (!gameResponse.StartsWith("ERRO")) labelText = $"ID da Partida: {gameResponse}";
+			else labelText = $"{gameResponse}";
+
+            lblCreationMatchResponse.Text = labelText;
+        }
 
 		private void btnListPlayers_Click(object sender, EventArgs e)
 		{
