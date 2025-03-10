@@ -1,21 +1,24 @@
-﻿using AutoSystem_KingMe.Models.Entities.Common;
+﻿using AutoSystem_KingMe.Models.Common;
 
 namespace AutoSystem_KingMe.Helper
 {
     public static class ResponseUtils
     {
-        public static List<TEntity>? HandleReponse<TEntity>(this string input) where TEntity : EntityBase, new()
+        public static GameResponse<TEntity> HandleReponse<TEntity>(this string input) where TEntity : EntityBase, new()
         {
-            if (input.StartsWith("ERRO")) return default;
+            var response = new GameResponse<TEntity>();
+            if (input.StartsWith("ERRO"))
+            {
+                response.ErrorMessage = input.Substring(4);
+                return response;
+            }
 
-            var response = new List<TEntity>();
             var values = input.Split("\r\n");
-
             foreach (var value in values) {
                 var entity = new TEntity();
                 entity.FillReponse(value);
 
-                response.Add(entity);
+                response.Entities.Add(entity);
             }
 
             return response;

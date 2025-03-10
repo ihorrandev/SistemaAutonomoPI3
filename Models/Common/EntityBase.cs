@@ -1,7 +1,7 @@
-﻿using AutoSystem_KingMe.Models.Entities.Common.Attributes;
+﻿using AutoSystem_KingMe.Models.Common.Attributes;
 using System.Reflection;
 
-namespace AutoSystem_KingMe.Models.Entities.Common
+namespace AutoSystem_KingMe.Models.Common
 {
     public abstract class EntityBase
     {
@@ -12,21 +12,23 @@ namespace AutoSystem_KingMe.Models.Entities.Common
         public void FillReponse(string input)
         {
             var values = input.Split(',');
-         
+
             // Obtendo as propriedades que implementam o attributo "Position"
-            var properties = this.GetType().GetProperties()
+            var properties = GetType().GetProperties()
                 .Where(x => x.GetCustomAttribute<PositionAttribute>() is not null);
 
             // Iterando as propriedades e preenchendo o valor de acordo com a posição configurada
-            foreach (var property in properties) { 
+            foreach (var property in properties)
+            {
                 var attribute = property.GetCustomAttribute<PositionAttribute>();
                 if (attribute is null) continue;
 
                 int position = attribute.Position;
-                string? value = values.ElementAtOrDefault(position);
-                if (value is null) continue;
+                string? strValue = values.ElementAtOrDefault(position);
+                if (strValue is null) continue;
 
-                property.SetValue(this, value);
+                // todo: Converter os valores para o tipo correspondente da propriedade
+                property.SetValue(this, strValue);
             }
         }
     }

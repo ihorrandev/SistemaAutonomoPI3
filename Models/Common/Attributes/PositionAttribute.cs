@@ -1,4 +1,4 @@
-﻿namespace AutoSystem_KingMe.Models.Entities.Common.Attributes
+﻿namespace AutoSystem_KingMe.Models.Common.Attributes
 {
     /// <summary>
     /// Atributo para identificar a propriedade correspondente ao valor retornado na posição informada.
@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="position">Posição do valor que será vinculado com a propriedade. Iniciando por zero.</param>
         /// <exception cref="ArgumentOutOfRangeException">Exceção lançada caso valor da posição seja negativo.</exception>
-        public PositionAttribute(int position) 
+        public PositionAttribute(int position)
         {
             if (position < 0)
                 throw new ArgumentOutOfRangeException(nameof(position));
