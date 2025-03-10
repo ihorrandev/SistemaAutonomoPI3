@@ -31,7 +31,7 @@
 			btnStartGame = new Button();
 			lblGetMatchesResponse = new Label();
 			lblPlayerTurn = new Label();
-			button1 = new Button();
+			btnBackToLobby = new Button();
 			SuspendLayout();
 			// 
 			// btnStartGame
@@ -63,22 +63,22 @@
 			lblPlayerTurn.Size = new Size(319, 16);
 			lblPlayerTurn.TabIndex = 17;
 			// 
-			// button1
+			// btnBackToLobby
 			// 
-			button1.Location = new Point(990, 12);
-			button1.Name = "button1";
-			button1.Size = new Size(75, 23);
-			button1.TabIndex = 18;
-			button1.Text = "Voltar";
-			button1.UseVisualStyleBackColor = true;
-			button1.Click += button1_Click;
+			btnBackToLobby.Location = new Point(990, 12);
+			btnBackToLobby.Name = "btnBackToLobby";
+			btnBackToLobby.Size = new Size(75, 23);
+			btnBackToLobby.TabIndex = 18;
+			btnBackToLobby.Text = "Voltar";
+			btnBackToLobby.UseVisualStyleBackColor = true;
+			btnBackToLobby.Click += btnBackToLobby_Click;
 			// 
 			// MatchForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1087, 480);
-			Controls.Add(button1);
+			Controls.Add(btnBackToLobby);
 			Controls.Add(lblPlayerTurn);
 			Controls.Add(lblGetMatchesResponse);
 			Controls.Add(btnStartGame);
@@ -93,6 +93,6 @@
 		private Button btnStartGame;
         private Label lblGetMatchesResponse;
         private Label lblPlayerTurn;
-		private Button button1;
+		private Button btnBackToLobby;
 	}
 }
