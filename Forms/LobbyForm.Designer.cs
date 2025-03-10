@@ -1,6 +1,6 @@
 ﻿namespace AutoSystem_KingMe
 {
-    partial class Lobby
+    partial class LobbyForm
     {
         /// <summary>
         ///  Required designer variable.

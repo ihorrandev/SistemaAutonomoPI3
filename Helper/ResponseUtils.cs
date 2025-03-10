@@ -13,9 +13,7 @@ namespace AutoSystem_KingMe.Helper
                 return response;
             }
 
-            response.Entities = new List<TEntity>();
             var values = input.Split("\r\n");
-
             foreach (var value in values) {
                 var entity = new TEntity();
                 entity.FillReponse(value);

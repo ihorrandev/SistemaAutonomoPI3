@@ -16,6 +16,14 @@ namespace AutoSystem_KingMe.Models
 
         public override string ToString() =>
             $"ID: {Id} | Nome: {Name} | Pontos: {Score}";
+    }
 
+    public class PlayerOnGameEntity : PlayerEntity
+    {
+        [Position(0)]
+        public string Id { get; set; }
+
+        [Position(1)]
+        public string Password { get; set; }
     }
 }

@@ -24,10 +24,11 @@ namespace AutoSystem_KingMe.Models.Common
                 if (attribute is null) continue;
 
                 int position = attribute.Position;
-                string? value = values.ElementAtOrDefault(position);
-                if (value is null) continue;
+                string? strValue = values.ElementAtOrDefault(position);
+                if (strValue is null) continue;
 
-                property.SetValue(this, value);
+                // todo: Converter os valores para o tipo correspondente da propriedade
+                property.SetValue(this, strValue);
             }
         }
     }

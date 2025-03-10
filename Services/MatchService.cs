@@ -13,8 +13,18 @@ namespace AutoSystem_KingMe.Services
 
         public static string CreateMatch(string nameMatch, string passwordMatch, string nameGroup) =>
             Jogo.CriarPartida(nameMatch, passwordMatch, nameGroup);
-       
 
+        public static GameResponse<PlayerOnGameEntity> EnterMatch(string strIdMatch, string playerName, string passwordMatch)
+        {
+            if (!int.TryParse(strIdMatch, out int idMatch))
+                return new GameResponse<PlayerOnGameEntity>() { ErrorMessage = "ID da partida está incorreto." };
+
+            string gameResponse = Jogo.Entrar(idMatch, playerName, passwordMatch);
+            return gameResponse.HandleReponse<PlayerOnGameEntity>();
+        }
+
+        public static string StartGame(PlayerOnGameEntity player) =>
+            Jogo.Iniciar(int.Parse(player.Id), player.Password);
 
     }
 }

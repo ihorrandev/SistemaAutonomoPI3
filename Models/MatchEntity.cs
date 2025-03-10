@@ -29,16 +29,6 @@ namespace AutoSystem_KingMe.Models
             };
 
             return $"{Id} - {Name} | {statusDescription} | {CreationDate}";
-        }
-
-        public static string CreateMatch(string nameMatch, string passwordMatch, string nameGroup)
-        {
-            return Jogo.CriarPartida(nameMatch, passwordMatch, nameGroup);
-        }
-
-        public static string EnterMatch(int idMatch, string playerName, string passwordMatch)
-        {
-            return Jogo.Entrar(idMatch, playerName, passwordMatch);
-        }
+        }   
     }
 }

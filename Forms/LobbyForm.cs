@@ -1,13 +1,13 @@
+using AutoSystem_KingMe.Forms;
 using AutoSystem_KingMe.Models;
 using AutoSystem_KingMe.Services;
 using KingMeServer;
-using MatchForm = AutoSystem_KingMe.Forms.Match;
 
 namespace AutoSystem_KingMe
 {
-    public partial class Lobby : Form
+    public partial class LobbyForm : Form
 	{
-		public Lobby()
+		public LobbyForm()
 		{
 			InitializeComponent();
 			lbVersion.Text = $"{lbVersion.Text} {Jogo.versao}";
@@ -43,7 +43,7 @@ namespace AutoSystem_KingMe
             string password = txtBox_senhaPartida.Text;
             string nameGroup = "Arqueiros de Agincourt";
 
-			string gameResponse = MatchEntity.CreateMatch(name, password, nameGroup);
+			string gameResponse = MatchService.CreateMatch(name, password, nameGroup);
 			string labelText = string.Empty;
 
 			if (!gameResponse.StartsWith("ERRO")) labelText = $"ID da Partida: {gameResponse}";
@@ -67,7 +67,7 @@ namespace AutoSystem_KingMe
 
 			if (gameResponse.Entities.Any())
             {
-				gameResponse.Entities
+				gameResponse.Entities!
 					.ForEach(player => lboPlayers.Items.Add(player));
 			}
             else
@@ -82,42 +82,22 @@ namespace AutoSystem_KingMe
 			lblIdPlayer.Text = string.Empty;
 			lblPasswordPlayer.Text = string.Empty;
 
-			int idMatch;
-			string namePlayer = txtBox_PlayerName.Text;
+			string strIdMatch = txtBox_IdMatch.Text;
+            string namePlayer = txtBox_PlayerName.Text;
 			string passwordMatch = txtBox_PasswordMatch.Text;
 
-			if (!int.TryParse(txtBox_IdMatch.Text, out idMatch))
+			var gameResponse = MatchService.EnterMatch(strIdMatch, namePlayer, passwordMatch);
+			if (gameResponse.IsSuccess)
 			{
-				lblWarningError.Text = "ERRO: ID da partida está incorreto.";
-			}
-			else
-			{
-				string tempResponse = MatchEntity.EnterMatch(idMatch, namePlayer, passwordMatch);
+				var player = gameResponse.Entities.FirstOrDefault();
+                lblIdPlayer.Text = $"ID do Jogador: {player.Id}"; lblPasswordPlayer.Text = $"Senha do Jogador: {player.Password}";
 
-				if (!tempResponse.StartsWith("ERRO"))
-				{
-					string[] enterMatchPlayer = tempResponse.Split(',');
-
-					string idPlayer = enterMatchPlayer[0].Trim();
-					string passwordPlayer = enterMatchPlayer[1].Trim();
-
-					lblIdPlayer.Text = $"ID do Jogador: {idPlayer}"; lblPasswordPlayer.Text = $"Senha do Jogador: {passwordPlayer}";
-
-
-					this.Hide();
-					var matchForm = new MatchForm();
-					matchForm.ShowDialog();
-
-					this.Close();
-                }
-                else
-				{
-					string[] error = tempResponse.Split(':');
-					lblWarningError.Text = $"{error[0]}:{error[1]}";
-				}
-			}
-
-			
+				Hide();
+                var matchForm = new MatchForm(player, strIdMatch);
+                matchForm.ShowDialog();
+                Close();
+            }
+            else lblWarningError.Text = gameResponse.ErrorMessage;
 		}
 	}
 }
