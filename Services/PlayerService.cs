@@ -15,5 +15,8 @@ namespace AutoSystem_KingMe.Services
             var response = Jogo.ListarJogadores(matchId);
             return response.HandleReponse<PlayerEntity>();
         }
-    }
+
+		public static string GetFavorites(int idplayer, string passwordplayer) =>
+			Jogo.ListarCartas(idplayer, passwordplayer);
+	}
 }

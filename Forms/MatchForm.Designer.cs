@@ -32,6 +32,10 @@
 			lblGetMatchesResponse = new Label();
 			lblPlayerTurn = new Label();
 			btnBackToLobby = new Button();
+			panel1 = new Panel();
+			lblFavorites = new Label();
+			button1 = new Button();
+			panel1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// btnStartGame
@@ -73,11 +77,42 @@
 			btnBackToLobby.UseVisualStyleBackColor = true;
 			btnBackToLobby.Click += btnBackToLobby_Click;
 			// 
+			// panel1
+			// 
+			panel1.BackColor = Color.Gainsboro;
+			panel1.BorderStyle = BorderStyle.FixedSingle;
+			panel1.Controls.Add(lblFavorites);
+			panel1.Location = new Point(21, 430);
+			panel1.Name = "panel1";
+			panel1.Size = new Size(259, 38);
+			panel1.TabIndex = 19;
+			// 
+			// lblFavorites
+			// 
+			lblFavorites.AutoSize = true;
+			lblFavorites.Location = new Point(13, 10);
+			lblFavorites.Name = "lblFavorites";
+			lblFavorites.Size = new Size(102, 15);
+			lblFavorites.TabIndex = 0;
+			lblFavorites.Text = "Lista de favoritos: ";
+			// 
+			// button1
+			// 
+			button1.Location = new Point(21, 401);
+			button1.Name = "button1";
+			button1.Size = new Size(147, 23);
+			button1.TabIndex = 20;
+			button1.Text = "Ver lista de favoritos";
+			button1.UseVisualStyleBackColor = true;
+			button1.Click += button1_Click;
+			// 
 			// MatchForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1087, 480);
+			Controls.Add(button1);
+			Controls.Add(panel1);
 			Controls.Add(btnBackToLobby);
 			Controls.Add(lblPlayerTurn);
 			Controls.Add(lblGetMatchesResponse);
@@ -85,6 +120,8 @@
 			Margin = new Padding(3, 2, 3, 2);
 			Name = "MatchForm";
 			Text = "Match";
+			panel1.ResumeLayout(false);
+			panel1.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -94,5 +131,8 @@
         private Label lblGetMatchesResponse;
         private Label lblPlayerTurn;
 		private Button btnBackToLobby;
+		private Panel panel1;
+		private Label lblFavorites;
+		private Button button1;
 	}
 }
