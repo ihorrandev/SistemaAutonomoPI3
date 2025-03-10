@@ -55,45 +55,40 @@ namespace AutoSystem_KingMe
 		private void btnListPlayers_Click(object sender, EventArgs e)
 		{
 			lboPlayers.Items.Clear();
-			string matchId = txtBox_idPartida.Text;
-			List<PlayerEntity> players = PlayerEntity.GetPlayers(matchId);
 
-			if (players == null || players.Count == 1)
+			string strMatchId = txtBox_idPartida.Text;
+			var gameResponse = PlayerService.GetPlayers(strMatchId);
+
+			if (!gameResponse.IsSuccess)
+			{
+				lblListPlayerResponse.Text = $"{gameResponse.ErrorMessage}";
+				return;
+            }
+
+			if (gameResponse.Entities.Any())
+            {
+				gameResponse.Entities
+					.ForEach(player => lboPlayers.Items.Add(player));
+			}
+            else
 			{
 				lblListPlayerResponse.Text = $"Partida sem jogadores!";
-
 			}
-			else if (players[0].Name.StartsWith("ERRO"))
-			{
-				lblListPlayerResponse.Text = $"{players}";
-			}
-			else
-			{
-				lblListPlayerResponse.Text = string.Empty;
-				foreach (var player in players)
-				{
-					if (player.Id != "")
-					{
-						lboPlayers.Items.Add($"ID: {player.Id} | Nome: {player.Name} | Pontos: {player.Score}");
-					}
-				}
-			}
-
 		}
 
 		private void btnEnterMatch_Click(object sender, EventArgs e)
 		{
-			lblWarningError.Text = "";
-			lblIdPlayer.Text = "";
-			lblPasswordPlayer.Text = "";
+			lblWarningError.Text = string.Empty;
+			lblIdPlayer.Text = string.Empty;
+			lblPasswordPlayer.Text = string.Empty;
 
-			string namePlayer = txtBox_PlayerName.Text;
 			int idMatch;
+			string namePlayer = txtBox_PlayerName.Text;
 			string passwordMatch = txtBox_PasswordMatch.Text;
 
 			if (!int.TryParse(txtBox_IdMatch.Text, out idMatch))
 			{
-				lblWarningError.Text = "ERRO: ID da partida está incorreto";
+				lblWarningError.Text = "ERRO: ID da partida está incorreto.";
 			}
 			else
 			{

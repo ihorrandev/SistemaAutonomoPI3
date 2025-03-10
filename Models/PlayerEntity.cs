@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoSystem_KingMe.Helper;
-using AutoSystem_KingMe.Models.Common;
-using AutoSystem_KingMe.Models.Entities.Common.Attributes;
-using KingMeServer;
+﻿using AutoSystem_KingMe.Models.Common;
+using AutoSystem_KingMe.Models.Common.Attributes;
 
 namespace AutoSystem_KingMe.Models
 {
@@ -21,11 +14,8 @@ namespace AutoSystem_KingMe.Models
         [Position(2)]
         public string Score { get; set; }
 
-        public static List<PlayerEntity> GetPlayers(string matchId)
-        {
-            var response = Jogo.ListarJogadores(Convert.ToInt32(matchId));
-            return response.HandleReponse<PlayerEntity>();
-        }
+        public override string ToString() =>
+            $"ID: {Id} | Nome: {Name} | Pontos: {Score}";
 
     }
 }
