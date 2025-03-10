@@ -95,7 +95,6 @@ namespace AutoSystem_KingMe
 				Hide();
                 var matchForm = new MatchForm(player, strIdMatch);
                 matchForm.ShowDialog();
-                Close();
             }
             else lblWarningError.Text = gameResponse.ErrorMessage;
 		}
