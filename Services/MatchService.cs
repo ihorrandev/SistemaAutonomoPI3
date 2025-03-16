@@ -26,5 +26,11 @@ namespace AutoSystem_KingMe.Services
         public static string StartGame(PlayerOnGameEntity player) =>
             Jogo.Iniciar(int.Parse(player.Id), player.Password);
 
+        public static string PutCharacter(PlayerOnGameEntity player, string sector, string character) =>
+            Jogo.ColocarPersonagem(int.Parse(player.Id), player.Password, int.Parse(sector), character);
+
+        public static GameResponse<CheckTimeEntity> CheckTime(string idMatch) =>
+            Jogo.VerificarVez(int.Parse(idMatch))
+                .HandleReponse<CheckTimeEntity>();
     }
 }
