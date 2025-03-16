@@ -92,10 +92,9 @@ namespace AutoSystem_KingMe
 				var player = gameResponse.Entities.FirstOrDefault();
                 lblIdPlayer.Text = $"ID do Jogador: {player.Id}"; lblPasswordPlayer.Text = $"Senha do Jogador: {player.Password}";
 
-				Hide();
+				//Hide();
                 var matchForm = new MatchForm(player, strIdMatch);
-                matchForm.ShowDialog();
-                Close();
+                matchForm.Show();
             }
             else lblWarningError.Text = gameResponse.ErrorMessage;
 		}
