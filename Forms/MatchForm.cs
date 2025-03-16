@@ -49,6 +49,7 @@ namespace AutoSystem_KingMe.Forms
             string returnLabel = string.Empty;
 
             if (gameResponse.StartsWith("ERRO")) returnLabel = $"{gameResponse}";
+            else returnLabel = $"{gameResponse}";
 
             lbl_ReturnPutCharacter.Text = returnLabel;
         }
