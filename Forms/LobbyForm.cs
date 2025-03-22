@@ -41,7 +41,7 @@ namespace AutoSystem_KingMe
         {
             string name = txtBox_nomePartida.Text;
             string password = txtBox_senhaPartida.Text;
-            string nameGroup = "Arqueiros de Agincourt";
+            string nameGroup = "Arqueiros de Azincourt";
 
 			string gameResponse = MatchService.CreateMatch(name, password, nameGroup);
 			string labelText = string.Empty;

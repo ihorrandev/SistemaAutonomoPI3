@@ -31,4 +31,20 @@ namespace AutoSystem_KingMe.Models
             return $"{Id} - {Name} | {statusDescription} | {CreationDate}";
         }   
     }
+
+    public class CheckTimeEntity : EntityBase
+    {
+        [Position(0)]
+        public string Id { get; set; }
+
+        [Position(1)]
+        public string Status { get; set; }
+
+        [Position(2)]
+        public string Round { get; set; }
+
+        [Position(3)]
+        public string Phase { get; set; }
+
+    }
 }
