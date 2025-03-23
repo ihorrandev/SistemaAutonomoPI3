@@ -177,7 +177,7 @@ namespace AutoSystem_KingMe.Forms
 
 		private void SalvarMovimento(string character, int sector)
 		{
-			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Forms", "game_state.txt");
+			string filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "Forms", "game_state.txt");
 			string[] linhas = File.ReadAllLines(filePath);
 
 			for (int i = 0; i < linhas.Length; i++)
