@@ -47,12 +47,12 @@ namespace AutoSystem_KingMe.Forms
 			if (gameTime?.Phase != "S") lbl_ReturnPutCharacter.Text = "ERRO: A partida não está em setup.";
 
             string sector = txtBox_SelectSector.Text;
-			if (sector == "")
-			{
-				lbl_ReturnPutCharacter.Text = "ERRO: campo de setor está vazio";
-			}
-
 			string character = txtBox_SelectCharacter.Text;
+
+			if (string.IsNullOrWhiteSpace(sector) || string.IsNullOrWhiteSpace(character))
+			{
+				lbl_ReturnPutCharacter.Text = "ERRO: Selecione o personagem e o setor.";
+			}
 
 			string gameResponse = MatchService.PutCharacter(_playerOnGame, sector, character);
 			string returnLabel = string.Empty;
@@ -172,8 +172,6 @@ namespace AutoSystem_KingMe.Forms
 
             var gameTime = gameTimeResponse.Entities.FirstOrDefault();
             if (gameTime?.Phase != "P") lbl_ReturnPutCharacter.Text = "ERRO: Não é possível realizar a promoção no momento.";
-
-
 
             string letra = txtBox_SelectCharacter.Text.Trim().ToUpper();
 			if (!int.TryParse(txtBox_SelectSector.Text, out int setor))
