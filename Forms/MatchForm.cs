@@ -1,12 +1,9 @@
 ﻿using AutoSystem_KingMe.Models;
 using AutoSystem_KingMe.Services;
-using KingMeServer;
-using System.Diagnostics.Metrics;
-using System.Numerics;
 
 namespace AutoSystem_KingMe.Forms
 {
-	public partial class MatchForm : Form
+    public partial class MatchForm : Form
 	{
 		private readonly PlayerOnGameEntity _playerOnGame;
 		private readonly string _matchId;
@@ -43,7 +40,13 @@ namespace AutoSystem_KingMe.Forms
 
 		private void btn_PutCharacter_Click_1(object sender, EventArgs e)
 		{
-			string sector = txtBox_SelectSector.Text;
+			var gameTimeResponse = MatchService.CheckTime(_matchId);
+			if (!gameTimeResponse.IsSuccess) return;
+
+			var gameTime = gameTimeResponse.Entities.FirstOrDefault();
+			if (gameTime?.Phase != "S") lbl_ReturnPutCharacter.Text = "ERRO: A partida não está em setup.";
+
+            string sector = txtBox_SelectSector.Text;
 			if (sector == "")
 			{
 				lbl_ReturnPutCharacter.Text = "ERRO: campo de setor está vazio";
@@ -164,7 +167,15 @@ namespace AutoSystem_KingMe.Forms
 
 		private void btn_promover_Click(object sender, EventArgs e)
 		{
-			string letra = txtBox_SelectCharacter.Text.Trim().ToUpper();
+            var gameTimeResponse = MatchService.CheckTime(_matchId);
+            if (!gameTimeResponse.IsSuccess) return;
+
+            var gameTime = gameTimeResponse.Entities.FirstOrDefault();
+            if (gameTime?.Phase != "P") lbl_ReturnPutCharacter.Text = "ERRO: Não é possível realizar a promoção no momento.";
+
+
+
+            string letra = txtBox_SelectCharacter.Text.Trim().ToUpper();
 			if (!int.TryParse(txtBox_SelectSector.Text, out int setor))
 			{
 				MessageBox.Show("Digite um número válido para o setor!");
