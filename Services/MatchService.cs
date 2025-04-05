@@ -7,7 +7,8 @@ namespace AutoSystem_KingMe.Services
 {
     public static class MatchService
     {
-        public static GameResponse<MatchEntity> GetMatches(string? status = "T") =>
+		private static Dictionary<string, string> matchStatuses = new Dictionary<string, string>();
+		public static GameResponse<MatchEntity> GetMatches(string? status = "T") =>
             Jogo.ListarPartidas(status)
                 .HandleReponse<MatchEntity>();
 
@@ -23,10 +24,34 @@ namespace AutoSystem_KingMe.Services
             return gameResponse.HandleReponse<PlayerOnGameEntity>();
         }
 
-        public static string StartGame(PlayerOnGameEntity player) =>
-            Jogo.Iniciar(int.Parse(player.Id), player.Password);
+		public static string StartGame(PlayerOnGameEntity player)
+		{
+			string response = Jogo.Iniciar(int.Parse(player.Id), player.Password);
+			if (response.StartsWith("ERRO:"))
+			{
+				matchStatuses[player.Status] = "ERRO";
+				return response.Replace("ERRO:", "");
+			}
+			else
+			{
+				matchStatuses[player.Status] = "INICIADA";
+				return response;
+			}
+		}
 
-        public static string PutCharacter(PlayerOnGameEntity player, string sector, string character) =>
+		public static string GetStatus(string statusKey)
+		{
+			if (string.IsNullOrEmpty(statusKey))
+				return "AGUARDANDO";
+
+			if (matchStatuses.ContainsKey(statusKey) && matchStatuses[statusKey] != null)
+				return matchStatuses[statusKey];
+
+			return "AGUARDANDO";
+		}
+
+
+		public static string PutCharacter(PlayerOnGameEntity player, string sector, string character) =>
             Jogo.ColocarPersonagem(int.Parse(player.Id), player.Password, int.Parse(sector), character);
 
         public static GameResponse<CheckTimeEntity> CheckTime(string idMatch) =>

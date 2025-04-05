@@ -16,7 +16,32 @@ namespace AutoSystem_KingMe.Services
             return response.HandleReponse<PlayerEntity>();
         }
 
+		private static Dictionary<string, List<PersonagemPosicao>> _posicoesPorPartida = new();
+		public static void DefinirPosicao(string matchId, string letra, int setor)
+		{
+			if (!_posicoesPorPartida.ContainsKey(matchId))
+				_posicoesPorPartida[matchId] = new List<PersonagemPosicao>();
+
+			_posicoesPorPartida[matchId].RemoveAll(p => p.Letra.ToUpper() == letra.ToUpper());
+
+			_posicoesPorPartida[matchId].Add(new PersonagemPosicao
+			{
+				Letra = letra.ToUpper(),
+				Setor = setor
+			});
+		}
+
+		public static List<PersonagemPosicao> GetPosicoes(string matchId)
+		{
+			if (_posicoesPorPartida.ContainsKey(matchId))
+				return _posicoesPorPartida[matchId];
+
+			return new List<PersonagemPosicao>();
+		}
+
 		public static string GetFavorites(int idplayer, string passwordplayer) =>
 			Jogo.ListarCartas(idplayer, passwordplayer);
+
+
 	}
 }

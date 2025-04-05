@@ -1,3 +1,5 @@
+using AutoSystem_KingMe.Forms;
+
 namespace AutoSystem_KingMe
 {
     internal static class Program

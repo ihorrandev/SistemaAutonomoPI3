@@ -1,8 +1,12 @@
 ﻿using AutoSystem_KingMe.Models;
+using AutoSystem_KingMe.Models.Common;
 using AutoSystem_KingMe.Services;
-using KingMeServer;
-using System.Diagnostics.Metrics;
-using System.Numerics;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace AutoSystem_KingMe.Forms
 {
@@ -10,239 +14,304 @@ namespace AutoSystem_KingMe.Forms
 	{
 		private readonly PlayerOnGameEntity _playerOnGame;
 		private readonly string _matchId;
-		private System.Windows.Forms.Timer timer;
+		private static string mensagemCompartilhada;
+		private List<string> imagensPosicionadas = new List<string>();
+		private readonly string _estadoJogoPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "Forms", "game_state.txt");
+
+
 
 		public List<PlayerEntity> Players { get; set; }
-		public List<CheckTimeEntity> CheckTime { get; set; }
+
+		private Dictionary<int, Point> setores = new Dictionary<int, Point>
+		{
+			{ 0, new Point(639, 547) },
+			{ 1, new Point(648, 474) },
+			{ 2, new Point(654, 417) },
+			{ 3, new Point(654, 365) },
+			{ 4, new Point(653, 322) },
+			{ 5, new Point(660, 282) },
+			{ 10, new Point(705, 223) }
+		};
+
+		private Dictionary<int, List<PictureBox>> imagensPorSetor = new Dictionary<int, List<PictureBox>>();
 
 		public MatchForm(PlayerOnGameEntity player, string matchId)
 		{
 			_playerOnGame = player;
+			player.Status = "AGUARDANDO";
 			_matchId = matchId;
-
-			InitializeComponent();
-			IniciarMonitoramento();
-		}
-
-		private void btnStartGame_Click(object sender, EventArgs e)
-		{
-			string gameResponse = MatchService.StartGame(_playerOnGame);
-			if (gameResponse.StartsWith("ERRO:"))
-			{
-				lblGetMatchesResponse.Text = gameResponse;
-			}
-			else
-			{
-				var getPlayersResponse = PlayerService.GetPlayers(_matchId);
-				Players = getPlayersResponse.Entities;
-
-				var playerTurn = Players.FirstOrDefault(x => x.Id == gameResponse);
-				lblPlayerTurn.Text = $"Vez do jogador: {playerTurn.Name}";
-			}
-		}
-
-		private void btn_PutCharacter_Click_1(object sender, EventArgs e)
-		{
-			string sector = txtBox_SelectSector.Text;
-			if (sector == "")
-			{
-				lbl_ReturnPutCharacter.Text = "ERRO: campo de setor está vazio";
-			}
-
-			string character = txtBox_SelectCharacter.Text;
-
-			string gameResponse = MatchService.PutCharacter(_playerOnGame, sector, character);
-			string returnLabel = string.Empty;
-
-			if (gameResponse.StartsWith("ERRO"))
-			{
-				returnLabel = $"{gameResponse}";
-			}
-			else
-			{
-				returnLabel = $"{gameResponse}";
-				character = character.ToUpper();
-				moverPersonagem(character, Convert.ToInt32(sector));
-				SalvarMovimento(character, Convert.ToInt32(sector));
-			}
-
-			lbl_ReturnPutCharacter.Text = returnLabel;
-
-		}
-
-		private void btn_CheckTime_Click(object sender, EventArgs e)
-		{
-			var checkTimeResponse = MatchService.CheckTime(_matchId);
-			CheckTime = checkTimeResponse.Entities;
 
 			var getPlayersResponse = PlayerService.GetPlayers(_matchId);
 			Players = getPlayersResponse.Entities;
+			var playerName = Players.FirstOrDefault(x => x.Id == player.Id);
 
-			var checkPlayerTurn = Players.FirstOrDefault(x => x.Id == CheckTime.First().Id);
-
-			lbl_ReturnIDPlayer.Text = $"ID: {checkPlayerTurn.Id}";
-			lbl__ReturnNamePlayer.Text = $"Nome: {checkPlayerTurn.Name}";
+			InitializeComponent();
+			lblJogador.Text = $"Jogador: {playerName.Name}";
+			timer1.Start();
+			this.FormClosing += new FormClosingEventHandler(MatchForm_FormClosing);
 		}
 
-		private void btnBackToLobby_Click(object sender, EventArgs e)
+		private void btnIniciarPartida_Click(object sender, EventArgs e)
 		{
-			Close();
+			if (string.IsNullOrEmpty(_matchId))
+			{
+				btnIniciarPartida.Visible = false;
+				lblIniciouPartida.Visible = true;
+				lblIniciouPartida.Text = "Partida não pode ser inciada! Sem referência de ID";
+			}
+			else
+			{
+				string gameResponse = MatchService.StartGame(_playerOnGame);
+				if (gameResponse.StartsWith("ERRO:"))
+				{
+					lblStatusRodada.Text = gameResponse;
+				}
+				else
+				{
+					lblIniciouPartida.Visible = true;
+					var getPlayersResponse = PlayerService.GetPlayers(_matchId);
+					Players = getPlayersResponse.Entities;
+
+					var playerTurn = Players.FirstOrDefault(x => x.Id == gameResponse);
+					mensagemCompartilhada = "Partida Iniciada! Vez do jogador: " + playerTurn.Name;
+				}
+			}
 		}
 
 		private bool esconder = false;
-		private void button1_Click(object sender, EventArgs e)
+		private void btnVerFavoritos_Click(object sender, EventArgs e)
 		{
+			lblListaFavoritos.Visible = true;
 			if (esconder)
 			{
-				lblFavorites.Text = "Lista de favoritos: ";
-				button1.Text = "Mostrar lista de favoritos";
+				lblListaFavoritos.Text = "Lista de favoritos: ";
+				btnVerFavoritos.Text = "Favoritos";
 				esconder = false;
 			}
 			else
 			{
 				int playerId = Convert.ToInt32(_playerOnGame.Id);
 				string favorites = PlayerService.GetFavorites(playerId, _playerOnGame.Password);
-				lblFavorites.Text = "Lista de favoritos: " + favorites;
-				button1.Text = "Esconder lista de favoritos";
+				lblListaFavoritos.Text = "Lista de favoritos: " + favorites;
+				btnVerFavoritos.Text = "Esconder lista de favoritos";
 				esconder = true;
 			}
 		}
 
+		private void MostrarTodasAsImagens()
+		{
+			foreach (Control control in this.Controls)
+			{
+				if (control is PictureBox pic && pic.Name.StartsWith("pic"))
+				{
+					pic.Visible = true;
+				}
+			}
+		}
 
-		private Dictionary<int, Point> setores = new Dictionary<int, Point>
-	{
-		{ 0, new Point(317, 394) },
-		{ 1, new Point(529, 391) },
-		{ 2, new Point(724, 392) },
-		{ 3, new Point(928, 387) },
-		{ 4, new Point(932, 186) },
-		{ 5, new Point(735, 181) },
-		{ 10, new Point(989, 62) }
-	};
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			timer1.Stop(); 
 
-		private int setorAtual = -1;
+			try
+			{
+				string status = MatchService.GetStatus(_playerOnGame.Status);
+
+				if (status == "INICIADA")
+				{
+					btnIniciarPartida.Visible = false;
+					lblIniciouPartida.Visible = true;
+					lblIniciouPartida.Text = mensagemCompartilhada;
+					lblTextAcoes.Visible = true;
+					pnlAcoes.Visible = true;
+					btnVerFavoritos.Visible = true;
+					MostrarTodasAsImagens();
+
+					AtualizarPosicoesDoArquivo();
+				}
+				else if (status == "ERRO")
+				{
+					btnIniciarPartida.Visible = false;
+					lblIniciouPartida.Visible = true;
+					lblIniciouPartida.Text = "Erro ao iniciar a partida.";
+				}
+			}
+			finally
+			{
+				timer1.Start();
+			}
+		}
+
+
+		private void btnPosicionarPersonagem_Click(object sender, EventArgs e)
+		{
+			if (int.TryParse(txbSetor.Text.Trim(), out int setor))
+			{
+				string letra = txbPersonagem.Text.Trim().ToUpper();
+				
+				PlayerService.DefinirPosicao(_matchId, letra, setor);
+				MoverPersonagem(setor, letra);
+			}
+			else
+			{
+				MessageBox.Show("Setor inválido.");
+			}
+		}
 
 		private PictureBox EncontrarPictureBox(string letra)
 		{
-			string nome = "pbx" + letra.ToUpper();
+			string nome = "pic" + letra.ToUpper();
 			return Controls.Find(nome, true).FirstOrDefault() as PictureBox;
 		}
 
-		private async void moverPersonagem(string letra, int novoSetor)
+		private void MoverPersonagem(int setor, string letra)
 		{
-			PictureBox personagem = EncontrarPictureBox(letra);
-			if (personagem == null)
+			letra = letra.Trim().ToUpper();
+
+			if (string.IsNullOrEmpty(letra))
 			{
-				MessageBox.Show($"Nenhuma imagem encontrada para a letra {letra.ToUpper()}!");
 				return;
 			}
 
-			if (!setores.ContainsKey(novoSetor))
+	
+			if (setor == 0 || setor == 10)
 			{
-				MessageBox.Show("Setor inválido!");
 				return;
 			}
 
-
-			if (setorAtual == novoSetor)
-				return;
-
-			Point destino = setores[novoSetor];
-			int passo = 5;
-
-			while (personagem.Location != destino)
+			PictureBox pic = EncontrarPictureBox(letra);
+			if (pic == null)
 			{
-				int novoX = personagem.Location.X + Math.Sign(destino.X - personagem.Location.X) * Math.Min(passo, Math.Abs(destino.X - personagem.Location.X));
-				int novoY = personagem.Location.Y + Math.Sign(destino.Y - personagem.Location.Y) * Math.Min(passo, Math.Abs(destino.Y - personagem.Location.Y));
-
-				personagem.Location = new Point(novoX, novoY);
-				await Task.Delay(10);
+				return;
 			}
 
-			setorAtual = novoSetor;
+		
+			foreach (var lista in imagensPorSetor.Values)
+			{
+				lista.Remove(pic);
+			}
+
+			
+			if (!imagensPorSetor.ContainsKey(setor))
+				imagensPorSetor[setor] = new List<PictureBox>();
+
+			
+			if (imagensPorSetor[setor].Count >= 4)
+			{
+				return;
+			}
+
+			
+			imagensPorSetor[setor].Add(pic);
+
+			Point baseLocation = setores[setor];
+			int offsetX = imagensPorSetor[setor].IndexOf(pic) * 50;
+
+			pic.Location = new Point(baseLocation.X + offsetX, baseLocation.Y);
+			pic.Visible = true;
+
+			if (!imagensPosicionadas.Contains(letra))
+				imagensPosicionadas.Add(letra);
+
+			VerificarPersonagemRestante();
+			SalvarEstadoJogo(letra, setor);
 		}
 
-		private void btn_promover_Click(object sender, EventArgs e)
+		private void SalvarEstadoJogo(string letra, int setor)
 		{
-			string letra = txtBox_SelectCharacter.Text.Trim().ToUpper();
-			if (!int.TryParse(txtBox_SelectSector.Text, out int setor))
+			try
 			{
-				MessageBox.Show("Digite um número válido para o setor!");
-				return;
+				string linha = $"{letra}:{setor}";
+				File.AppendAllLines(_estadoJogoPath, new[] { linha });
 			}
-
-			moverPersonagem(letra, setor);
-			SalvarMovimento(letra, setor);
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Erro ao salvar estado do jogo: {ex.Message}");
+			}
 		}
 
-		private void SalvarMovimento(string character, int sector)
-		{
-			string filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "Forms", "game_state.txt");
-			string[] linhas = File.ReadAllLines(filePath);
 
-			for (int i = 0; i < linhas.Length; i++)
+		private void VerificarPersonagemRestante()
+		{
+			List<string> todasAsLetras = new List<string> { "A", "B", "C", "D", "E", "G", "H", "T", "R", "Q", "M", "L", "K" };
+			List<string> letrasRestantes = todasAsLetras.Except(imagensPosicionadas).ToList();
+
+			if (letrasRestantes.Count == 1)
 			{
-				if (linhas[i].StartsWith(character + ":"))
+				string ultimaLetra = letrasRestantes[0];
+
+				PlayerService.DefinirPosicao(_matchId, ultimaLetra, 0);
+				
+				PictureBox pic = EncontrarPictureBox(ultimaLetra);
+				if (pic != null)
 				{
-					linhas[i] = $"{character}:{sector}";
-					File.WriteAllLines(filePath, linhas);
+					Point posZero = setores[0];
+					pic.Location = posZero;
+					pic.Visible = true;
+
+					
+					if (!imagensPorSetor.ContainsKey(0))
+						imagensPorSetor[0] = new List<PictureBox>();
+
+					imagensPorSetor[0].Add(pic);
+					imagensPosicionadas.Add(ultimaLetra);
+				}
+			}
+		}
+
+		private readonly object lockAtualizacao = new object();
+		private void AtualizarPosicoesDoArquivo()
+		{
+			lock (lockAtualizacao)
+			{
+				if (!File.Exists(_estadoJogoPath))
 					return;
-				}
-			}
 
-			File.AppendAllText(filePath, $"{character}:{sector}\n");
-		}
+				var linhas = File.ReadAllLines(_estadoJogoPath).Distinct(); 
 
-		private Dictionary<string, int> LerMovimentos()
-		{
-			string filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "Forms", "game_state.txt");
-			Dictionary<string, int> movimentos = new Dictionary<string, int>();
-
-			if (!File.Exists(filePath))
-				return movimentos;
-
-			string[] linhas = File.ReadAllLines(filePath);
-			foreach (string linha in linhas)
-			{
-				string[] partes = linha.Split(':');
-				if (partes.Length == 2)
+				foreach (var linha in linhas)
 				{
-					string character = partes[0];
-					int sector = int.Parse(partes[1]);
-					movimentos[character] = sector;
+					var partes = linha.Split(':');
+					if (partes.Length == 2 && int.TryParse(partes[1], out int setor))
+					{
+						string letra = partes[0].Trim().ToUpper();
+
+						if (!imagensPosicionadas.Contains(letra))
+						{
+							MoverPersonagem(setor, letra);
+						}
+					}
 				}
-			}
 
-			return movimentos;
-		}
-
-		private void IniciarMonitoramento()
-		{
-			timer = new System.Windows.Forms.Timer();
-			timer.Interval = 3000;
-			timer.Tick += async (sender, e) =>
-			{
-				timer.Stop();
-				await AtualizarMovimentos();
-				timer.Start();
-			};
-			timer.Start();
-		}
-
-		private async Task AtualizarMovimentos()
-		{
-			var movimentos = LerMovimentos();
-
-			foreach (var movimento in movimentos)
-			{
-				string character = movimento.Key;
-				int sector = movimento.Value;
-
-				moverPersonagem(character, sector);
-
-				await Task.Delay(500);
 			}
 		}
+
+		private void MatchForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			
+			var result = MessageBox.Show("Deseja realmente sair?", "Confirmação", MessageBoxButtons.YesNo);
+			if (result == DialogResult.No)
+			{
+				e.Cancel = true;
+				return;
+			}
+
+			File.WriteAllText(_estadoJogoPath, string.Empty);
+			LimparEstadoJogo();
+		}
+
+		private void LimparEstadoJogo()
+		{
+			try
+			{
+				File.WriteAllText(_estadoJogoPath, string.Empty);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Erro ao limpar o estado do jogo: {ex.Message}");
+			}
+		}
+
 
 	}
 }

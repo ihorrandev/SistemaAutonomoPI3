@@ -25,5 +25,8 @@ namespace AutoSystem_KingMe.Models
 
         [Position(1)]
         public string Password { get; set; }
-    }
+
+		[Position(2)]
+		public string Status { get; set; }
+	}
 }
