@@ -21,7 +21,7 @@ namespace AutoSystem_KingMe.Forms
         private readonly object lockAtualizacao = new object();
         private Dictionary<int, int> contadorImagensPorSetor = new Dictionary<int, int>();
         string statusRodada;
-        int qtdNao = 0;
+        int? qtdNao = null;
 
 
         private List<string> imagensPosicionadas = new List<string>();
@@ -380,7 +380,7 @@ namespace AutoSystem_KingMe.Forms
 
         private void QuantidadeNaos()
         {
-            if (Players != null)
+            if (Players != null && qtdNao is null)
             {
                 int quantidade = Players.Count;
                 if (quantidade == 3)
@@ -424,9 +424,13 @@ namespace AutoSystem_KingMe.Forms
             string votacao = aceito ? "S" : "N";
 
             var votacaoResponse = Jogo.Votar(int.Parse(PlayerOnGame.Id), PlayerOnGame.Password, votacao);
+            if (!votacaoResponse.StartsWith("ERRO"))
+            {
+                pnlVotacao.Visible = false;
+                lblVotacao.Visible = false;
 
-            pnlVotacao.Visible = false;
-            lblVotacao.Visible = false;
+                if (!aceito) qtdNao--;
+            }
         }
 
     }
