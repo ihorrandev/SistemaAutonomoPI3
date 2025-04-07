@@ -1,4 +1,5 @@
-﻿using AutoSystem_KingMe.Models.Common;
+﻿using System.Xml.Linq;
+using AutoSystem_KingMe.Models.Common;
 using AutoSystem_KingMe.Models.Common.Attributes;
 using KingMeServer;
 
@@ -46,5 +47,22 @@ namespace AutoSystem_KingMe.Models
         [Position(3)]
         public string Phase { get; set; }
 
+        public string PhaseDescription => Phase switch
+        {
+            "S" => "Setup",
+            "P" => "Promoção",
+            "V" => "Votação",
+            _ => string.Empty,
+        };
+
+    }
+
+    public class CharacterEntity : EntityBase
+    {
+        [Position(0)]
+        public string Sector { get; set; }
+
+        [Position(1)]
+        public string Character { get; set; }
     }
 }

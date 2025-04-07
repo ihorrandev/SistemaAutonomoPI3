@@ -50,12 +50,17 @@ namespace AutoSystem_KingMe.Services
 			return "AGUARDANDO";
 		}
 
-
-		public static string PutCharacter(PlayerOnGameEntity player, string sector, string character) =>
-            Jogo.ColocarPersonagem(int.Parse(player.Id), player.Password, int.Parse(sector), character);
+		public static GameResponse<CharacterEntity> PutCharacter(PlayerOnGameEntity player, string sector, string character) =>
+            Jogo.ColocarPersonagem(int.Parse(player.Id), player.Password, int.Parse(sector), character)
+				.HandleReponse<CharacterEntity>();
 
         public static GameResponse<CheckTimeEntity> CheckTime(string idMatch) =>
             Jogo.VerificarVez(int.Parse(idMatch))
                 .HandleReponse<CheckTimeEntity>();
+
+		public static GameResponse<CharacterEntity> promotionCharacter(PlayerOnGameEntity player, string character) =>
+			Jogo.Promover(int.Parse(player.Id), player.Password, character)
+				.HandleReponse<CharacterEntity>();
+		
     }
 }

@@ -33,6 +33,8 @@
 			lblIniciouPartida = new Label();
 			lblStatusRodada = new Label();
 			pnlAcoes = new Panel();
+			lblMenssagemErro = new Label();
+			btnPromoverPersonagem = new Button();
 			lblStatusAcao = new Label();
 			btnPosicionarPersonagem = new Button();
 			lblTextPersonagem = new Label();
@@ -57,6 +59,9 @@
 			picQ = new PictureBox();
 			picR = new PictureBox();
 			picT = new PictureBox();
+			lblVezJogador = new Label();
+			btnVerificarVez = new Button();
+			lblQuantidadeNao = new Label();
 			pnlAcoes.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)picA).BeginInit();
 			((System.ComponentModel.ISupportInitialize)picB).BeginInit();
@@ -82,7 +87,7 @@
 			btnIniciarPartida.FlatStyle = FlatStyle.Flat;
 			btnIniciarPartida.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			btnIniciarPartida.ForeColor = Color.Black;
-			btnIniciarPartida.Location = new Point(12, 12);
+			btnIniciarPartida.Location = new Point(40, 12);
 			btnIniciarPartida.Name = "btnIniciarPartida";
 			btnIniciarPartida.Size = new Size(101, 26);
 			btnIniciarPartida.TabIndex = 0;
@@ -93,7 +98,8 @@
 			// lblIniciouPartida
 			// 
 			lblIniciouPartida.BackColor = Color.Transparent;
-			lblIniciouPartida.Location = new Point(12, 41);
+			lblIniciouPartida.ForeColor = Color.White;
+			lblIniciouPartida.Location = new Point(416, 158);
 			lblIniciouPartida.Name = "lblIniciouPartida";
 			lblIniciouPartida.Size = new Size(296, 26);
 			lblIniciouPartida.TabIndex = 1;
@@ -102,7 +108,8 @@
 			// lblStatusRodada
 			// 
 			lblStatusRodada.BackColor = Color.Transparent;
-			lblStatusRodada.Location = new Point(11, 67);
+			lblStatusRodada.ForeColor = Color.Black;
+			lblStatusRodada.Location = new Point(744, 24);
 			lblStatusRodada.Name = "lblStatusRodada";
 			lblStatusRodada.Size = new Size(217, 23);
 			lblStatusRodada.TabIndex = 2;
@@ -112,21 +119,45 @@
 			// 
 			pnlAcoes.BackColor = Color.Transparent;
 			pnlAcoes.BorderStyle = BorderStyle.FixedSingle;
+			pnlAcoes.Controls.Add(lblMenssagemErro);
+			pnlAcoes.Controls.Add(btnPromoverPersonagem);
 			pnlAcoes.Controls.Add(lblStatusAcao);
 			pnlAcoes.Controls.Add(btnPosicionarPersonagem);
 			pnlAcoes.Controls.Add(lblTextPersonagem);
 			pnlAcoes.Controls.Add(lblTextSetor);
 			pnlAcoes.Controls.Add(txbPersonagem);
 			pnlAcoes.Controls.Add(txbSetor);
-			pnlAcoes.Location = new Point(10, 99);
+			pnlAcoes.Location = new Point(40, 65);
 			pnlAcoes.Name = "pnlAcoes";
-			pnlAcoes.Size = new Size(216, 253);
+			pnlAcoes.Size = new Size(216, 280);
 			pnlAcoes.TabIndex = 3;
 			pnlAcoes.Visible = false;
+			// 
+			// lblMenssagemErro
+			// 
+			lblMenssagemErro.AutoSize = true;
+			lblMenssagemErro.ForeColor = Color.Red;
+			lblMenssagemErro.Location = new Point(24, 255);
+			lblMenssagemErro.Name = "lblMenssagemErro";
+			lblMenssagemErro.Size = new Size(0, 15);
+			lblMenssagemErro.TabIndex = 7;
+			// 
+			// btnPromoverPersonagem
+			// 
+			btnPromoverPersonagem.FlatStyle = FlatStyle.Flat;
+			btnPromoverPersonagem.ForeColor = Color.Black;
+			btnPromoverPersonagem.Location = new Point(29, 220);
+			btnPromoverPersonagem.Name = "btnPromoverPersonagem";
+			btnPromoverPersonagem.Size = new Size(152, 23);
+			btnPromoverPersonagem.TabIndex = 6;
+			btnPromoverPersonagem.Text = "Promover Personagem";
+			btnPromoverPersonagem.UseVisualStyleBackColor = true;
+			btnPromoverPersonagem.Click += btnPromoverPersonagem_Click;
 			// 
 			// lblStatusAcao
 			// 
 			lblStatusAcao.AutoSize = true;
+			lblStatusAcao.ForeColor = Color.Black;
 			lblStatusAcao.Location = new Point(24, 30);
 			lblStatusAcao.Name = "lblStatusAcao";
 			lblStatusAcao.Size = new Size(134, 15);
@@ -136,6 +167,7 @@
 			// btnPosicionarPersonagem
 			// 
 			btnPosicionarPersonagem.FlatStyle = FlatStyle.Flat;
+			btnPosicionarPersonagem.ForeColor = Color.Black;
 			btnPosicionarPersonagem.Location = new Point(29, 182);
 			btnPosicionarPersonagem.Name = "btnPosicionarPersonagem";
 			btnPosicionarPersonagem.Size = new Size(152, 23);
@@ -147,6 +179,7 @@
 			// lblTextPersonagem
 			// 
 			lblTextPersonagem.AutoSize = true;
+			lblTextPersonagem.ForeColor = Color.Black;
 			lblTextPersonagem.Location = new Point(26, 123);
 			lblTextPersonagem.Name = "lblTextPersonagem";
 			lblTextPersonagem.Size = new Size(73, 15);
@@ -156,6 +189,7 @@
 			// lblTextSetor
 			// 
 			lblTextSetor.AutoSize = true;
+			lblTextSetor.ForeColor = Color.Black;
 			lblTextSetor.Location = new Point(26, 58);
 			lblTextSetor.Name = "lblTextSetor";
 			lblTextSetor.Size = new Size(37, 15);
@@ -181,7 +215,8 @@
 			// 
 			lblTextAcoes.AutoSize = true;
 			lblTextAcoes.BackColor = Color.Transparent;
-			lblTextAcoes.Location = new Point(24, 90);
+			lblTextAcoes.ForeColor = Color.Black;
+			lblTextAcoes.Location = new Point(54, 56);
 			lblTextAcoes.Name = "lblTextAcoes";
 			lblTextAcoes.Size = new Size(39, 15);
 			lblTextAcoes.TabIndex = 4;
@@ -190,6 +225,7 @@
 			// 
 			// btnVerFavoritos
 			// 
+			btnVerFavoritos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			btnVerFavoritos.BackColor = Color.Transparent;
 			btnVerFavoritos.FlatAppearance.BorderColor = Color.Black;
 			btnVerFavoritos.FlatAppearance.BorderSize = 2;
@@ -197,7 +233,7 @@
 			btnVerFavoritos.FlatStyle = FlatStyle.Flat;
 			btnVerFavoritos.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			btnVerFavoritos.ForeColor = Color.Black;
-			btnVerFavoritos.Location = new Point(12, 609);
+			btnVerFavoritos.Location = new Point(24, 670);
 			btnVerFavoritos.Name = "btnVerFavoritos";
 			btnVerFavoritos.Size = new Size(101, 26);
 			btnVerFavoritos.TabIndex = 5;
@@ -208,8 +244,10 @@
 			// 
 			// lblListaFavoritos
 			// 
+			lblListaFavoritos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			lblListaFavoritos.BackColor = Color.Transparent;
-			lblListaFavoritos.Location = new Point(119, 612);
+			lblListaFavoritos.ForeColor = Color.Black;
+			lblListaFavoritos.Location = new Point(131, 673);
 			lblListaFavoritos.Name = "lblListaFavoritos";
 			lblListaFavoritos.Size = new Size(217, 26);
 			lblListaFavoritos.TabIndex = 6;
@@ -224,7 +262,8 @@
 			// lblJogador
 			// 
 			lblJogador.BackColor = Color.Transparent;
-			lblJogador.Location = new Point(861, 12);
+			lblJogador.ForeColor = Color.Black;
+			lblJogador.Location = new Point(744, 0);
 			lblJogador.Name = "lblJogador";
 			lblJogador.Size = new Size(127, 15);
 			lblJogador.TabIndex = 7;
@@ -235,9 +274,9 @@
 			picA.BackColor = Color.Transparent;
 			picA.BackgroundImage = Properties.Resources.A1;
 			picA.BackgroundImageLayout = ImageLayout.Zoom;
-			picA.Location = new Point(277, 12);
+			picA.Location = new Point(314, 65);
 			picA.Name = "picA";
-			picA.Size = new Size(59, 57);
+			picA.Size = new Size(31, 34);
 			picA.TabIndex = 8;
 			picA.TabStop = false;
 			picA.Visible = false;
@@ -247,9 +286,9 @@
 			picB.BackColor = Color.Transparent;
 			picB.BackgroundImage = Properties.Resources.B1;
 			picB.BackgroundImageLayout = ImageLayout.Zoom;
-			picB.Location = new Point(342, 12);
+			picB.Location = new Point(342, 65);
 			picB.Name = "picB";
-			picB.Size = new Size(59, 57);
+			picB.Size = new Size(31, 34);
 			picB.TabIndex = 9;
 			picB.TabStop = false;
 			picB.Visible = false;
@@ -259,9 +298,9 @@
 			picG.BackColor = Color.Transparent;
 			picG.BackgroundImage = Properties.Resources.G1;
 			picG.BackgroundImageLayout = ImageLayout.Zoom;
-			picG.Location = new Point(601, 10);
+			picG.Location = new Point(453, 65);
 			picG.Name = "picG";
-			picG.Size = new Size(59, 57);
+			picG.Size = new Size(31, 34);
 			picG.TabIndex = 10;
 			picG.TabStop = false;
 			picG.Visible = false;
@@ -271,9 +310,9 @@
 			picC.BackColor = Color.Transparent;
 			picC.BackgroundImage = Properties.Resources.C1;
 			picC.BackgroundImageLayout = ImageLayout.Zoom;
-			picC.Location = new Point(407, 10);
+			picC.Location = new Point(370, 65);
 			picC.Name = "picC";
-			picC.Size = new Size(59, 57);
+			picC.Size = new Size(31, 34);
 			picC.TabIndex = 10;
 			picC.TabStop = false;
 			picC.Visible = false;
@@ -283,9 +322,9 @@
 			picD.BackColor = Color.Transparent;
 			picD.BackgroundImage = Properties.Resources.D1;
 			picD.BackgroundImageLayout = ImageLayout.Zoom;
-			picD.Location = new Point(471, 10);
+			picD.Location = new Point(397, 65);
 			picD.Name = "picD";
-			picD.Size = new Size(59, 57);
+			picD.Size = new Size(31, 34);
 			picD.TabIndex = 11;
 			picD.TabStop = false;
 			picD.Visible = false;
@@ -295,9 +334,9 @@
 			picE.BackColor = Color.Transparent;
 			picE.BackgroundImage = Properties.Resources.E1;
 			picE.BackgroundImageLayout = ImageLayout.Zoom;
-			picE.Location = new Point(536, 10);
+			picE.Location = new Point(425, 65);
 			picE.Name = "picE";
-			picE.Size = new Size(59, 57);
+			picE.Size = new Size(31, 34);
 			picE.TabIndex = 12;
 			picE.TabStop = false;
 			picE.Visible = false;
@@ -307,9 +346,9 @@
 			picH.BackColor = Color.Transparent;
 			picH.BackgroundImage = Properties.Resources.H1;
 			picH.BackgroundImageLayout = ImageLayout.Zoom;
-			picH.Location = new Point(277, 75);
+			picH.Location = new Point(481, 65);
 			picH.Name = "picH";
-			picH.Size = new Size(59, 57);
+			picH.Size = new Size(31, 34);
 			picH.TabIndex = 13;
 			picH.TabStop = false;
 			picH.Visible = false;
@@ -319,9 +358,9 @@
 			pick.BackColor = Color.Transparent;
 			pick.BackgroundImage = Properties.Resources.K1;
 			pick.BackgroundImageLayout = ImageLayout.Zoom;
-			pick.Location = new Point(342, 75);
+			pick.Location = new Point(509, 65);
 			pick.Name = "pick";
-			pick.Size = new Size(59, 57);
+			pick.Size = new Size(31, 34);
 			pick.TabIndex = 14;
 			pick.TabStop = false;
 			pick.Visible = false;
@@ -331,9 +370,9 @@
 			picL.BackColor = Color.Transparent;
 			picL.BackgroundImage = Properties.Resources.L1;
 			picL.BackgroundImageLayout = ImageLayout.Zoom;
-			picL.Location = new Point(407, 73);
+			picL.Location = new Point(537, 65);
 			picL.Name = "picL";
-			picL.Size = new Size(59, 57);
+			picL.Size = new Size(31, 34);
 			picL.TabIndex = 15;
 			picL.TabStop = false;
 			picL.Visible = false;
@@ -343,9 +382,9 @@
 			picM.BackColor = Color.Transparent;
 			picM.BackgroundImage = Properties.Resources.M1;
 			picM.BackgroundImageLayout = ImageLayout.Zoom;
-			picM.Location = new Point(471, 75);
+			picM.Location = new Point(565, 65);
 			picM.Name = "picM";
-			picM.Size = new Size(59, 57);
+			picM.Size = new Size(31, 34);
 			picM.TabIndex = 16;
 			picM.TabStop = false;
 			picM.Visible = false;
@@ -355,9 +394,9 @@
 			picQ.BackColor = Color.Transparent;
 			picQ.BackgroundImage = Properties.Resources.Q1;
 			picQ.BackgroundImageLayout = ImageLayout.Zoom;
-			picQ.Location = new Point(536, 73);
+			picQ.Location = new Point(314, 99);
 			picQ.Name = "picQ";
-			picQ.Size = new Size(59, 57);
+			picQ.Size = new Size(31, 34);
 			picQ.TabIndex = 17;
 			picQ.TabStop = false;
 			picQ.Visible = false;
@@ -367,9 +406,9 @@
 			picR.BackColor = Color.Transparent;
 			picR.BackgroundImage = Properties.Resources.R1;
 			picR.BackgroundImageLayout = ImageLayout.Zoom;
-			picR.Location = new Point(601, 73);
+			picR.Location = new Point(342, 99);
 			picR.Name = "picR";
-			picR.Size = new Size(59, 57);
+			picR.Size = new Size(31, 34);
 			picR.TabIndex = 18;
 			picR.TabStop = false;
 			picR.Visible = false;
@@ -379,20 +418,52 @@
 			picT.BackColor = Color.Transparent;
 			picT.BackgroundImage = Properties.Resources.T1;
 			picT.BackgroundImageLayout = ImageLayout.Zoom;
-			picT.Location = new Point(277, 138);
+			picT.Location = new Point(370, 99);
 			picT.Name = "picT";
-			picT.Size = new Size(59, 57);
+			picT.Size = new Size(31, 34);
 			picT.TabIndex = 19;
 			picT.TabStop = false;
 			picT.Visible = false;
+			// 
+			// lblVezJogador
+			// 
+			lblVezJogador.BackColor = Color.Transparent;
+			lblVezJogador.ForeColor = Color.Black;
+			lblVezJogador.Location = new Point(131, 357);
+			lblVezJogador.Name = "lblVezJogador";
+			lblVezJogador.Size = new Size(248, 26);
+			lblVezJogador.TabIndex = 21;
+			// 
+			// btnVerificarVez
+			// 
+			btnVerificarVez.Location = new Point(33, 357);
+			btnVerificarVez.Name = "btnVerificarVez";
+			btnVerificarVez.Size = new Size(92, 23);
+			btnVerificarVez.TabIndex = 22;
+			btnVerificarVez.Text = "Verificar Vez";
+			btnVerificarVez.UseVisualStyleBackColor = true;
+			btnVerificarVez.Click += btnVerificarVez_Click;
+			// 
+			// lblQuantidadeNao
+			// 
+			lblQuantidadeNao.AutoSize = true;
+			lblQuantidadeNao.Location = new Point(43, 465);
+			lblQuantidadeNao.Name = "lblQuantidadeNao";
+			lblQuantidadeNao.Size = new Size(7, 15);
+			lblQuantidadeNao.TabIndex = 23;
+			lblQuantidadeNao.Text = "\r\n";
+			lblQuantidadeNao.Visible = false;
 			// 
 			// MatchForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			BackgroundImage = Properties.Resources.background3;
+			BackgroundImage = Properties.Resources.BackCaue;
 			BackgroundImageLayout = ImageLayout.Stretch;
-			ClientSize = new Size(1000, 644);
+			ClientSize = new Size(955, 718);
+			Controls.Add(lblQuantidadeNao);
+			Controls.Add(btnVerificarVez);
+			Controls.Add(lblVezJogador);
 			Controls.Add(picT);
 			Controls.Add(picR);
 			Controls.Add(picQ);
@@ -469,5 +540,10 @@
 		private PictureBox picQ;
 		private PictureBox picR;
 		private PictureBox picT;
+        private Label lblVezJogador;
+        private Button btnPromoverPersonagem;
+        private Label lblMenssagemErro;
+        private Button btnVerificarVez;
+		private Label lblQuantidadeNao;
 	}
 }
