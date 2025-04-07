@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MatchForm));
             btnIniciarPartida = new Button();
             lblIniciouPartida = new Label();
             lblStatusRodada = new Label();
@@ -60,8 +59,8 @@
             picQ = new PictureBox();
             picR = new PictureBox();
             picT = new PictureBox();
-            btnVerficarVez = new Button();
             lblVezJogador = new Label();
+            btnVerificarVez = new Button();
             pnlAcoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picA).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picB).BeginInit();
@@ -233,7 +232,7 @@
             btnVerFavoritos.FlatStyle = FlatStyle.Flat;
             btnVerFavoritos.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnVerFavoritos.ForeColor = Color.White;
-            btnVerFavoritos.Location = new Point(310, 191);
+            btnVerFavoritos.Location = new Point(310, 429);
             btnVerFavoritos.Name = "btnVerFavoritos";
             btnVerFavoritos.Size = new Size(101, 26);
             btnVerFavoritos.TabIndex = 5;
@@ -247,7 +246,7 @@
             lblListaFavoritos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblListaFavoritos.BackColor = Color.Transparent;
             lblListaFavoritos.ForeColor = Color.White;
-            lblListaFavoritos.Location = new Point(417, 194);
+            lblListaFavoritos.Location = new Point(417, 432);
             lblListaFavoritos.Name = "lblListaFavoritos";
             lblListaFavoritos.Size = new Size(217, 26);
             lblListaFavoritos.TabIndex = 6;
@@ -425,42 +424,34 @@
             picT.TabStop = false;
             picT.Visible = false;
             // 
-            // btnVerficarVez
-            // 
-            btnVerficarVez.BackColor = Color.Transparent;
-            btnVerficarVez.FlatAppearance.BorderColor = Color.White;
-            btnVerficarVez.FlatAppearance.BorderSize = 2;
-            btnVerficarVez.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnVerficarVez.FlatStyle = FlatStyle.Flat;
-            btnVerficarVez.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnVerficarVez.ForeColor = Color.White;
-            btnVerficarVez.Location = new Point(309, 223);
-            btnVerficarVez.Name = "btnVerficarVez";
-            btnVerficarVez.Size = new Size(101, 26);
-            btnVerficarVez.TabIndex = 20;
-            btnVerficarVez.Text = "Verificar vez";
-            btnVerficarVez.UseVisualStyleBackColor = false;
-            btnVerficarVez.Click += btnVerficarVez_Click;
-            // 
             // lblVezJogador
             // 
             lblVezJogador.BackColor = Color.Transparent;
-            lblVezJogador.ForeColor = Color.White;
-            lblVezJogador.Location = new Point(416, 223);
+            lblVezJogador.ForeColor = Color.Black;
+            lblVezJogador.Location = new Point(410, 220);
             lblVezJogador.Name = "lblVezJogador";
             lblVezJogador.Size = new Size(248, 26);
             lblVezJogador.TabIndex = 21;
-            lblVezJogador.Visible = false;
+            // 
+            // btnVerificarVez
+            // 
+            btnVerificarVez.Location = new Point(329, 220);
+            btnVerificarVez.Name = "btnVerificarVez";
+            btnVerificarVez.Size = new Size(92, 23);
+            btnVerificarVez.TabIndex = 22;
+            btnVerificarVez.Text = "Verificar Vez";
+            btnVerificarVez.UseVisualStyleBackColor = true;
+            btnVerificarVez.Click += btnVerificarVez_Click;
             // 
             // MatchForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImage = Properties.Resources.BackCaue;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1087, 480);
+            ClientSize = new Size(955, 718);
+            Controls.Add(btnVerificarVez);
             Controls.Add(lblVezJogador);
-            Controls.Add(btnVerficarVez);
             Controls.Add(picT);
             Controls.Add(picR);
             Controls.Add(picQ);
@@ -537,9 +528,9 @@
 		private PictureBox picQ;
 		private PictureBox picR;
 		private PictureBox picT;
-        private Button btnVerficarVez;
         private Label lblVezJogador;
         private Button btnPromoverPersonagem;
         private Label lblMenssagemErro;
+        private Button btnVerificarVez;
     }
 }

@@ -24,13 +24,13 @@ namespace AutoSystem_KingMe.Forms
 
         private Dictionary<int, Point> setores = new Dictionary<int, Point>
         {
-            { 0, new Point(298, 339) },
-            { 1, new Point(512, 339) },
-            { 2, new Point(713, 339) },
-            { 3, new Point(908, 339) },
-            { 4, new Point(908, 170) },
-            { 5, new Point(709, 170) },
-            { 10, new Point(917, 21) }
+            { 0, new Point(603, 661) },
+            { 1, new Point(603, 603) },
+            { 2, new Point(603, 533) },
+            { 3, new Point(603, 461) },
+            { 4, new Point(603, 395) },
+            { 5, new Point(603, 331) },
+            { 10, new Point(699, 264) }
         };
 
         private Dictionary<int, List<PictureBox>> imagensPorSetor = new Dictionary<int, List<PictureBox>>();
@@ -74,6 +74,7 @@ namespace AutoSystem_KingMe.Forms
 
                     var playerTurn = Players.FirstOrDefault(x => x.Id == gameResponse);
                     mensagemCompartilhada = "Partida Iniciada! Vez do jogador: " + playerTurn.Name;
+                    lblStatusRodada.Text = "Setup";
                     LimparEstadoJogo();
                 }
             }
@@ -249,6 +250,7 @@ namespace AutoSystem_KingMe.Forms
                 string ultimaLetra = letrasRestantes[0];
 
                 PlayerService.DefinirPosicao(_matchId, ultimaLetra, 0);
+                lblStatusRodada.Text = "Promoção";
 
                 PictureBox pic = EncontrarPictureBox(ultimaLetra);
                 if (pic != null)
@@ -320,21 +322,7 @@ namespace AutoSystem_KingMe.Forms
             }
         }
 
-        private void btnVerficarVez_Click(object sender, EventArgs e)
-        {
-            var checkTimeResponse = MatchService.CheckTime(_matchId);
-            CheckTime = checkTimeResponse.Entities;
-
-            var getPlayersResponse = PlayerService.GetPlayers(_matchId);
-            Players = getPlayersResponse.Entities;
-
-            var checkPlayerTurn = Players.FirstOrDefault(x => x.Id == CheckTime.First().Id);
-            if (checkPlayerTurn != null)
-            {
-                lblVezJogador.Text = $"Vez do jogador {checkPlayerTurn.Name} - ID: {checkPlayerTurn.Id}";
-            }
-            
-        }
+        
 
         private void btnPromoverPersonagem_Click(object sender, EventArgs e)
         {
@@ -345,6 +333,7 @@ namespace AutoSystem_KingMe.Forms
             if (!retorno.IsSuccess) lblMenssagemErro.Text = $"{retorno.ErrorMessage}";
             else
             {
+                lblStatusRodada.Text = "Setup";
                 foreach (var personagem in Personagens)
                 {
                     string letraPersonagem = personagem.Character;
@@ -356,6 +345,21 @@ namespace AutoSystem_KingMe.Forms
                         MoverPersonagem(int.Parse(setor), letraPersonagem);
                     }
                 }
+            }
+        }
+
+        private void btnVerificarVez_Click(object sender, EventArgs e)
+        {
+            var checkTimeResponse = MatchService.CheckTime(_matchId);
+            CheckTime = checkTimeResponse.Entities;
+
+            var getPlayersResponse = PlayerService.GetPlayers(_matchId);
+            Players = getPlayersResponse.Entities;
+
+            var checkPlayerTurn = Players.FirstOrDefault(x => x.Id == CheckTime.First().Id);
+            if (checkPlayerTurn != null)
+            {
+                lblVezJogador.Text = $"Vez do jogador {checkPlayerTurn.Name} - ID: {checkPlayerTurn.Id}";
             }
         }
     }

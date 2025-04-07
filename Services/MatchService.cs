@@ -61,5 +61,9 @@ namespace AutoSystem_KingMe.Services
 		public static GameResponse<CharacterEntity> promotionCharacter(PlayerOnGameEntity player, string character) =>
 			Jogo.Promover(int.Parse(player.Id), player.Password, character)
 				.HandleReponse<CharacterEntity>();
+		public void batata()
+		{
+			Jogo.Votar();
+		}
     }
 }
