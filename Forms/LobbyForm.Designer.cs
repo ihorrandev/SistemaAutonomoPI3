@@ -67,6 +67,7 @@
             txtBox_IdMatch = new TextBox();
             label10 = new Label();
             btnEnterMatch = new Button();
+            btnPartidaTeste = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
@@ -310,7 +311,7 @@
             label5.Name = "label5";
             label5.Size = new Size(73, 15);
             label5.TabIndex = 16;
-            label5.Text = "Id da Partida";
+            label5.Text = "PlayerId da Partida";
             // 
             // lboPlayers
             // 
@@ -353,6 +354,7 @@
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnPartidaTeste);
             panel3.Controls.Add(lblWarningError);
             panel3.Controls.Add(lblPasswordPlayer);
             panel3.Controls.Add(lblIdPlayer);
@@ -442,13 +444,23 @@
             // 
             // btnEnterMatch
             // 
-            btnEnterMatch.Location = new Point(33, 326);
+            btnEnterMatch.Location = new Point(6, 326);
             btnEnterMatch.Name = "btnEnterMatch";
             btnEnterMatch.Size = new Size(109, 23);
             btnEnterMatch.TabIndex = 0;
             btnEnterMatch.Text = "Entrar na Partida";
             btnEnterMatch.UseVisualStyleBackColor = true;
             btnEnterMatch.Click += btnEnterMatch_Click;
+            // 
+            // btnPartidaTeste
+            // 
+            btnPartidaTeste.Location = new Point(121, 326);
+            btnPartidaTeste.Name = "btnPartidaTeste";
+            btnPartidaTeste.Size = new Size(93, 23);
+            btnPartidaTeste.TabIndex = 11;
+            btnPartidaTeste.Text = "Partida de Teste";
+            btnPartidaTeste.UseVisualStyleBackColor = true;
+            btnPartidaTeste.Click += btnPartidaTeste_Click;
             // 
             // LobbyForm
             // 
@@ -525,5 +537,6 @@
 		private Label lblWarningError;
         private Label lblGetMatchesResponse;
 		private Label label14;
-	}
+        private Button btnPartidaTeste;
+    }
 }

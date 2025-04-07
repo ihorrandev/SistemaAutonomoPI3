@@ -10,7 +10,7 @@ namespace AutoSystem_KingMe.Services
         public static GameResponse<PlayerEntity> GetPlayers(string strMatchId)
         {
             if (!int.TryParse(strMatchId, out int matchId))
-                return new GameResponse<PlayerEntity>() { ErrorMessage = "Id da partida inválido." };
+                return new GameResponse<PlayerEntity>() { ErrorMessage = "PlayerId da partida inválido." };
 
             var response = Jogo.ListarJogadores(matchId);
             return response.HandleReponse<PlayerEntity>();

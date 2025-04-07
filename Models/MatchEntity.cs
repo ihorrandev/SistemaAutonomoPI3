@@ -36,7 +36,7 @@ namespace AutoSystem_KingMe.Models
     public class CheckTimeEntity : EntityBase
     {
         [Position(0)]
-        public string Id { get; set; }
+        public string PlayerId { get; set; }
 
         [Position(1)]
         public string Status { get; set; }

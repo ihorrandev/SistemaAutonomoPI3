@@ -8,6 +8,7 @@ namespace AutoSystem_KingMe.Services
     public static class MatchService
     {
 		private static Dictionary<string, string> matchStatuses = new Dictionary<string, string>();
+
 		public static GameResponse<MatchEntity> GetMatches(string? status = "T") =>
             Jogo.ListarPartidas(status)
                 .HandleReponse<MatchEntity>();
