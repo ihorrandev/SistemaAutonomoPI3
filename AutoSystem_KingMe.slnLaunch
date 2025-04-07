@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "AutoSystem_KingMe.csproj",
+        "Action": "Start",
+        "DebugTarget": "AutoSystem_KingMe"
+      }
+    ]
+  }
+]
