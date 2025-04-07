@@ -176,62 +176,78 @@ namespace AutoSystem_KingMe.Forms
         private void MoverPersonagem(int setor, string letra)
         {
             letra = letra.Trim().ToUpper();
-
             if (string.IsNullOrEmpty(letra))
-            {
                 return;
-            }
 
-
-            if (setor == 0 || setor == 10)
+            if (!setores.ContainsKey(setor))
             {
+                MessageBox.Show("Setor inválido.");
                 return;
             }
 
             PictureBox pic = EncontrarPictureBox(letra);
             if (pic == null)
-            {
                 return;
-            }
 
-
-            foreach (var lista in imagensPorSetor.Values)
+            foreach (var kvp in imagensPorSetor)
             {
-                lista.Remove(pic);
+                if (kvp.Value.Contains(pic))
+                {
+                    kvp.Value.Remove(pic);
+                    break;
+                }
             }
-
 
             if (!imagensPorSetor.ContainsKey(setor))
                 imagensPorSetor[setor] = new List<PictureBox>();
 
 
-            if (imagensPorSetor[setor].Count >= 4)
+            if (!imagensPorSetor[setor].Contains(pic) && imagensPorSetor[setor].Count >= 4)
             {
                 return;
             }
-
 
             imagensPorSetor[setor].Add(pic);
 
             Point baseLocation = setores[setor];
             int offsetX = imagensPorSetor[setor].IndexOf(pic) * 50;
-
             pic.Location = new Point(baseLocation.X + offsetX, baseLocation.Y);
             pic.Visible = true;
 
             if (!imagensPosicionadas.Contains(letra))
                 imagensPosicionadas.Add(letra);
 
-            VerificarPersonagemRestante();
+
             SalvarEstadoJogo(letra, setor);
+            VerificarPersonagemRestante();
         }
 
-        private void SalvarEstadoJogo(string letra, int setor)
+
+        private void SalvarEstadoJogo(string letraAtualizada, int setorAtualizado)
         {
             try
             {
-                string linha = $"{letra}:{setor}";
-                File.AppendAllLines(_estadoJogoPath, new[] { linha });
+
+                var linhas = new List<string>();
+                var atualizado = false;
+
+                if (File.Exists(_estadoJogoPath))
+                {
+                    var existentes = File.ReadAllLines(_estadoJogoPath);
+                    foreach (var linha in existentes)
+                    {
+                        var partes = linha.Split(':');
+                        if (partes.Length == 2 && partes[0].Trim().ToUpper() != letraAtualizada)
+                        {
+                            linhas.Add(linha);
+                        }
+                    }
+                }
+
+
+                linhas.Add($"{letraAtualizada}:{setorAtualizado}");
+
+                File.WriteAllLines(_estadoJogoPath, linhas);
             }
             catch (Exception ex)
             {
@@ -250,7 +266,6 @@ namespace AutoSystem_KingMe.Forms
                 string ultimaLetra = letrasRestantes[0];
 
                 PlayerService.DefinirPosicao(_matchId, ultimaLetra, 0);
-                lblStatusRodada.Text = "Promoção";
 
                 PictureBox pic = EncontrarPictureBox(ultimaLetra);
                 if (pic != null)
@@ -286,13 +301,17 @@ namespace AutoSystem_KingMe.Forms
                     {
                         string letra = partes[0].Trim().ToUpper();
 
-                        if (!imagensPosicionadas.Contains(letra))
+                        PictureBox pic = EncontrarPictureBox(letra);
+                        if (pic == null) continue;
+
+                        int setorAtual = ObterSetorAtualDaImagem(pic);
+
+                        if (!imagensPosicionadas.Contains(letra) || setorAtual != setor)
                         {
                             MoverPersonagem(setor, letra);
                         }
                     }
                 }
-
             }
         }
 
@@ -322,7 +341,7 @@ namespace AutoSystem_KingMe.Forms
             }
         }
 
-        
+
 
         private void btnPromoverPersonagem_Click(object sender, EventArgs e)
         {
@@ -362,5 +381,29 @@ namespace AutoSystem_KingMe.Forms
                 lblVezJogador.Text = $"Vez do jogador {checkPlayerTurn.Name} - ID: {checkPlayerTurn.Id}";
             }
         }
+        private int ObterSetorAtualDaImagem(PictureBox pic)
+        {
+            foreach (var setor in imagensPorSetor)
+            {
+                if (setor.Value.Contains(pic))
+                {
+                    return setor.Key;
+                }
+            }
+            return -1;
+        }
+
+        private void pnlAcoes_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblVezJogador_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
+
 }

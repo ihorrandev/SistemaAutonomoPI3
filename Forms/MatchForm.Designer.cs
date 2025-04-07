@@ -61,6 +61,7 @@
             picT = new PictureBox();
             lblVezJogador = new Label();
             btnVerificarVez = new Button();
+            label1 = new Label();
             pnlAcoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picA).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picB).BeginInit();
@@ -80,12 +81,12 @@
             // btnIniciarPartida
             // 
             btnIniciarPartida.BackColor = Color.Transparent;
-            btnIniciarPartida.FlatAppearance.BorderColor = Color.White;
+            btnIniciarPartida.FlatAppearance.BorderColor = Color.Black;
             btnIniciarPartida.FlatAppearance.BorderSize = 2;
             btnIniciarPartida.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnIniciarPartida.FlatStyle = FlatStyle.Flat;
             btnIniciarPartida.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnIniciarPartida.ForeColor = Color.White;
+            btnIniciarPartida.ForeColor = Color.Black;
             btnIniciarPartida.Location = new Point(309, 158);
             btnIniciarPartida.Name = "btnIniciarPartida";
             btnIniciarPartida.Size = new Size(101, 26);
@@ -107,8 +108,8 @@
             // lblStatusRodada
             // 
             lblStatusRodada.BackColor = Color.Transparent;
-            lblStatusRodada.ForeColor = Color.White;
-            lblStatusRodada.Location = new Point(668, 67);
+            lblStatusRodada.ForeColor = Color.Black;
+            lblStatusRodada.Location = new Point(744, 24);
             lblStatusRodada.Name = "lblStatusRodada";
             lblStatusRodada.Size = new Size(217, 23);
             lblStatusRodada.TabIndex = 2;
@@ -131,6 +132,7 @@
             pnlAcoes.Size = new Size(216, 280);
             pnlAcoes.TabIndex = 3;
             pnlAcoes.Visible = false;
+            pnlAcoes.Paint += pnlAcoes_Paint;
             // 
             // lblMenssagemErro
             // 
@@ -144,7 +146,7 @@
             // btnPromoverPersonagem
             // 
             btnPromoverPersonagem.FlatStyle = FlatStyle.Flat;
-            btnPromoverPersonagem.ForeColor = Color.White;
+            btnPromoverPersonagem.ForeColor = Color.Black;
             btnPromoverPersonagem.Location = new Point(29, 220);
             btnPromoverPersonagem.Name = "btnPromoverPersonagem";
             btnPromoverPersonagem.Size = new Size(152, 23);
@@ -156,7 +158,7 @@
             // lblStatusAcao
             // 
             lblStatusAcao.AutoSize = true;
-            lblStatusAcao.ForeColor = Color.White;
+            lblStatusAcao.ForeColor = Color.Black;
             lblStatusAcao.Location = new Point(24, 30);
             lblStatusAcao.Name = "lblStatusAcao";
             lblStatusAcao.Size = new Size(134, 15);
@@ -166,7 +168,7 @@
             // btnPosicionarPersonagem
             // 
             btnPosicionarPersonagem.FlatStyle = FlatStyle.Flat;
-            btnPosicionarPersonagem.ForeColor = Color.White;
+            btnPosicionarPersonagem.ForeColor = Color.Black;
             btnPosicionarPersonagem.Location = new Point(29, 182);
             btnPosicionarPersonagem.Name = "btnPosicionarPersonagem";
             btnPosicionarPersonagem.Size = new Size(152, 23);
@@ -178,7 +180,7 @@
             // lblTextPersonagem
             // 
             lblTextPersonagem.AutoSize = true;
-            lblTextPersonagem.ForeColor = Color.White;
+            lblTextPersonagem.ForeColor = Color.Black;
             lblTextPersonagem.Location = new Point(26, 123);
             lblTextPersonagem.Name = "lblTextPersonagem";
             lblTextPersonagem.Size = new Size(73, 15);
@@ -188,7 +190,7 @@
             // lblTextSetor
             // 
             lblTextSetor.AutoSize = true;
-            lblTextSetor.ForeColor = Color.White;
+            lblTextSetor.ForeColor = Color.Black;
             lblTextSetor.Location = new Point(26, 58);
             lblTextSetor.Name = "lblTextSetor";
             lblTextSetor.Size = new Size(37, 15);
@@ -214,7 +216,7 @@
             // 
             lblTextAcoes.AutoSize = true;
             lblTextAcoes.BackColor = Color.Transparent;
-            lblTextAcoes.ForeColor = Color.White;
+            lblTextAcoes.ForeColor = Color.Black;
             lblTextAcoes.Location = new Point(54, 56);
             lblTextAcoes.Name = "lblTextAcoes";
             lblTextAcoes.Size = new Size(39, 15);
@@ -226,12 +228,12 @@
             // 
             btnVerFavoritos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnVerFavoritos.BackColor = Color.Transparent;
-            btnVerFavoritos.FlatAppearance.BorderColor = Color.White;
+            btnVerFavoritos.FlatAppearance.BorderColor = Color.Black;
             btnVerFavoritos.FlatAppearance.BorderSize = 2;
             btnVerFavoritos.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnVerFavoritos.FlatStyle = FlatStyle.Flat;
             btnVerFavoritos.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnVerFavoritos.ForeColor = Color.White;
+            btnVerFavoritos.ForeColor = Color.Black;
             btnVerFavoritos.Location = new Point(310, 429);
             btnVerFavoritos.Name = "btnVerFavoritos";
             btnVerFavoritos.Size = new Size(101, 26);
@@ -245,7 +247,7 @@
             // 
             lblListaFavoritos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblListaFavoritos.BackColor = Color.Transparent;
-            lblListaFavoritos.ForeColor = Color.White;
+            lblListaFavoritos.ForeColor = Color.Black;
             lblListaFavoritos.Location = new Point(417, 432);
             lblListaFavoritos.Name = "lblListaFavoritos";
             lblListaFavoritos.Size = new Size(217, 26);
@@ -261,8 +263,8 @@
             // lblJogador
             // 
             lblJogador.BackColor = Color.Transparent;
-            lblJogador.ForeColor = Color.White;
-            lblJogador.Location = new Point(668, 40);
+            lblJogador.ForeColor = Color.Black;
+            lblJogador.Location = new Point(744, 0);
             lblJogador.Name = "lblJogador";
             lblJogador.Size = new Size(127, 15);
             lblJogador.TabIndex = 7;
@@ -428,14 +430,15 @@
             // 
             lblVezJogador.BackColor = Color.Transparent;
             lblVezJogador.ForeColor = Color.Black;
-            lblVezJogador.Location = new Point(410, 220);
+            lblVezJogador.Location = new Point(407, 220);
             lblVezJogador.Name = "lblVezJogador";
             lblVezJogador.Size = new Size(248, 26);
             lblVezJogador.TabIndex = 21;
+            lblVezJogador.Click += lblVezJogador_Click;
             // 
             // btnVerificarVez
             // 
-            btnVerificarVez.Location = new Point(329, 220);
+            btnVerificarVez.Location = new Point(309, 220);
             btnVerificarVez.Name = "btnVerificarVez";
             btnVerificarVez.Size = new Size(92, 23);
             btnVerificarVez.TabIndex = 22;
@@ -450,6 +453,7 @@
             BackgroundImage = Properties.Resources.BackCaue;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(955, 718);
+            Controls.Add(label1);
             Controls.Add(btnVerificarVez);
             Controls.Add(lblVezJogador);
             Controls.Add(picT);
@@ -532,5 +536,6 @@
         private Button btnPromoverPersonagem;
         private Label lblMenssagemErro;
         private Button btnVerificarVez;
+        private Label label1;
     }
 }
